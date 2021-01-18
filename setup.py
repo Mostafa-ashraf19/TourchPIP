@@ -4,10 +4,10 @@ from setuptools import setup, find_packages
 HERE = pathlib.Path(__file__).parent
 
 VERSION = '0.1.0'
-PACKAGE_NAME = 'your_package'
+PACKAGE_NAME = 'DLFrameWork'
 AUTHOR = ''
 AUTHOR_EMAIL = ''
-URL = 'https://github.com/you/your_package'
+URL = 'https://github.com/Mostafa-ashraf19/DL_framework-.git'
 
 LICENSE = 'MIT License '
 DESCRIPTION = 'DL Framework help you to build simple neural network'
