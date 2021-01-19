@@ -34,14 +34,14 @@ class Layer_Dense:
         self._params['b'+ str(self.layer_number)] = self.biases
 
     #   passing data from activation function classes to Layer_Dens class
-    def pass_act(self,act_type: str , Z):
-        self._params['Z'+ str(self.layer_number)] = Z
+    def pass_act(self,act_type: str , A):
+        self._params['A'+ str(self.layer_number)] = A
         self.layer_activations[self.layer_number] = act_type
 
     # multibly W*X and save them to out and _params dictionary
     def forward(self,inputs):
         self.out = np.dot(self.weights, inputs) + self.biases
-        self._params['A' + str(self.layer_number)]= self.out
+        self._params['Z' + str(self.layer_number)]= self.out
         
     # get weights
     def get_weights(self):
