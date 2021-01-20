@@ -64,10 +64,10 @@ if __name__ == '__main__':
     print('*******************************************************')
     print(y2_train)
 
-    # print(x_train)
-    # print('*******************************************************')
-    # x_train = next(Data)
-    # print(x_train)
+    x_train , y2_train = next(Data)
+    print(x_train)
+    print('*******************************************************')
+    print(y2_train)
 
 #     layer1 = Layer_Dense(x_train.shape, 200)
 #     out1 = layer.forward()
