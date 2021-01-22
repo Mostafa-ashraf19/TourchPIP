@@ -12,9 +12,10 @@ class CIFAR_10:
         self.path = path
         self.download = download
         self.train = train
+        self.csv_list = []
         if self.download:
             self._Download()
-        self.path = os.getcwd() + '/' + self.path + '/test.csv' if not self.train else os.getcwd() + '/' + self.path + '/train.csv'
+        self.path = os.getcwd() + '/' + self.path
 
     def _Download(self):
         if not os.path.exists(os.getcwd() + '/' + self.path):
@@ -36,11 +37,15 @@ class CIFAR_10:
     def toCSV(self):
         file_names = ['data_batch_1', 'data_batch_2', 'data_batch_3', 'data_batch_4', 'data_batch_5']
         for name in file_names:
-            df_labels = pd.DataFrame(self.unpickle('blah/cifar-10-batches-py/' + name)[b'labels'])
-            df_data = pd.DataFrame(self.unpickle('blah/cifar-10-batches-py/' + name)[b'data'])
+            df_labels = pd.DataFrame(self.unpickle(self.path + '/' + 'cifar-10-batches-py/' + name)[b'labels'])
+            df_data = pd.DataFrame(self.unpickle(self.path + '/' + 'cifar-10-batches-py/' + name)[b'data'])
             new = pd.concat([df_labels, df_data], axis=1)
-            new.to_csv(name + '.csv', index=False)
+            new.to_csv(self.path + '/' + 'cifar-10-batches-py/' + name + '.csv', index=False)
+
+        for name in file_names:
+            self.csv_list.append(self.path + '/' + 'cifar-10-batches-py/' + name + '.csv')
 
 
-CIFAR10_data = CIFAR_10('blah', True, True)
+CIFAR10_data = CIFAR_10('blah', False, True)
 CIFAR10_data.toCSV()
+print(CIFAR10_data.csv_list)
