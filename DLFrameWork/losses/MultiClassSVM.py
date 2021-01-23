@@ -2,7 +2,7 @@ from ..forward import Sigmoid,ReLU,Tanh,Linear,Identity
 import numpy as np
 
 
-class multi_class_SVM: #(Layer_Dense): #y_true, y_out , a_prelast , w, act_fc , b
+class MultiClassSVM: #(Layer_Dense): #y_true, y_out , a_prelast , w, act_fc , b
     def  __init__ (self , y_out , y_true):
         self.y_true=y_true-1
         self.y_out=y_out
