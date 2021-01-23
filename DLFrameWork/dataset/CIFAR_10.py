@@ -50,6 +50,7 @@ class CIFAR_10:
         for name in file_names[0:5]:
             self.csv_list.append(self.path + '/' + 'cifar-10-batches-py/' + name + '.csv')
 
+
         if not os.path.exists(self.path + '/' + 'cifar-10-batches-py/train_cifar.csv'):
             df_from_each_file = (pd.read_csv(f, sep=',', header=None) for f in self.csv_list)
             df_merged = pd.concat(df_from_each_file, ignore_index=True)
@@ -62,3 +63,4 @@ class CIFAR_10:
 CIFAR10_data = CIFAR_10('blah', False, False)
 # CIFAR10_data.toCSV()
 print(CIFAR10_data)
+
