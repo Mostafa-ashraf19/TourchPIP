@@ -1,2 +1,2 @@
-# from .FashionMNIST import FashionMNIST
-# from .DataLoader import DataLoader
+from .FashionMNIST import FashionMNIST
+from .DataLoader import DataLoader
