@@ -2,7 +2,7 @@ from ..forward import Sigmoid,ReLU,Tanh,Linear,Identity
 import numpy as np
 
 
-class softmax_cross_entropy(Layer_Dense):
+class SoftmaxCrossEntropy:
     def  __init__ (self , y_out , y_true):
 
         self.y_true = y_true-1       
