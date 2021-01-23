@@ -2,7 +2,7 @@
 from ..forward import Sigmoid,ReLU,Tanh,Linear,Identity 
 import numpy as np
 
-class multi_class_perceptron(Layer_Dense):
+class MultiClassPerceptron:
 
     def __init__(self , y_out , y_true ):
 
