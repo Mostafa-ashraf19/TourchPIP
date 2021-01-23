@@ -45,7 +45,9 @@ class CIFAR_10:
         for name in file_names:
             self.csv_list.append(self.path + '/' + 'cifar-10-batches-py/' + name + '.csv')
 
-
-CIFAR10_data = CIFAR_10('blah', False, True)
-CIFAR10_data.toCSV()
-print(CIFAR10_data.csv_list)
+    def __repr__(self):
+        return  self.TrainFile if self.train == True else self.TestFile
+if __name__ == '__main__':
+    CIFAR10_data = CIFAR_10('blah', False, True)
+    CIFAR10_data.toCSV()
+    print(CIFAR10_data.csv_list)
