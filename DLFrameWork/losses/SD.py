@@ -1,16 +1,15 @@
 import numpy as np
-from ..forward import Layer_Dense,_params
-from ..backward import Backward
+# from ..forward import Layer_Dense#_params
+# from ..backward import Backward
 
 
-class SD(Layer_Dense):
-    def __init__(self,pred,lable):
+class SD():
+    def __init__(self,pred,lable,learning_rate=0.1):
         self.pred = pred
         self.lable = lable
-        self.parameters = _params #Layer_Dense._params 
+        self.parameters = 1 #Layer_Dense._params #Layer_Dense._params 
         self.dl={}
-        self.backward_ = Backward(Y=self.pred) # instance 
-
+        
     def loss(self) :    
       pred_minus_lable = np.subtract(self.pred , self.lable)
       pred_minus_lable_T = pred_minus_lable.T
@@ -19,25 +18,22 @@ class SD(Layer_Dense):
     def grad(self) :
       return np.subtract(self.pred , self.lable)
 
-    def StepBackward(self,learning_rate):
-      self.backward_.learning_rate = learning_rate 
-      self.backward_.LossDerivative = self.grad() #  
-      return self.backward_.backward()
 
+    @staticmethod
+    def _Loss(prediction,label) :  
+      lossval = (prediction-label)**2
+      return lossval
+    
+    @staticmethod
+    def _Cost(prediction,label):
+      m = label.shape[1] # datasize 
+      cost = (1/m) * np.sum(SD._Loss(prediction,label))
+      cost = np.squeeze(cost)
+      return cost 
 
+    @staticmethod
+    def _Grad(prediction,label) :
+      return np.subtract(prediction,label)  
 
-# class SD(Layer_Dense):
-#     def __init__(self,pred,lable):
-#         # super(SD,self).__init__(AL=pred,Y=lable,parameters=Layer_Dense._params)
-#         self.pred = pred
-#         self.lable = lable
-#         # self.parameters = parameter#Layer_Dense._params #parameter
-#         self.dw={}
+    
 
-#     def loss(self) :    
-#       pred_minus_lable = np.subtract(self.pred , self.lable)
-#       pred_minus_lable_T = pred_minus_lable.T
-#       return 0.5 * np.dot(pred_minus_lable_T, pred_minus_lable)
-
-#     def grade(self) :
-#           return np.subtract(self.pred , self.lable)
