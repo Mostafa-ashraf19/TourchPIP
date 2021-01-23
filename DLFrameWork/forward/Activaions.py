@@ -1,5 +1,5 @@
 import numpy as np
-from Layers import Layer_Dense
+from .Layers import Layer_Dense
 
 class Sigmoid:
     
