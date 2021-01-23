@@ -1,23 +1,27 @@
 import numpy as np 
-from ..forward import Layer_Dense
+from ..forward import Layer_Dense,_params,layers_num_arr,layer_activations
 from ..forward import ReLU,Sigmoid,Tanh,Softmax,Identity
+
+
 
 class Backward:  # make inheratnce to loss, and layers 
     def __init__(self,Y):
         # self.AL = AL
         self.Y = Y
         self.grads = {} #grads 
-        self.parameters = Layer_Dense._params #parameters 
+        self.parameters = _params#Layer_Dense._params #parameters 
+        self.layers_num_arr  = layers_num_arr
+        self.layer_activations = layer_activations
         self.learning_rate = 0.1
         self.LossDerivative = 0
         #print('from backprop',Layer_Dense._params)
-        self.caches = { i: (Layer_Dense._params['A'+str(i)],Layer_Dense._params['W'+str(i)],Layer_Dense._params['b'+str(i)]) if i != 0 else 
-                                (Layer_Dense._params['A'+str(i)],'_') for i in range(0,int(((len(Layer_Dense._params.keys())-1)/3)+1))}
+        self.caches = { i: (self.parameters['A'+str(i)],self.parameters['W'+str(i)],self.parameters['b'+str(i)]) if i != 0 else 
+                                (self.parameters['A'+str(i)],'_') for i in range(0,int(((len(self.parameters.keys())-1)/3)+1))}
  
     # def _L_model_backward(self,AL, Y, caches):
     def _L_model_backward(self):# caches):
         
-        L = len(Layer_Dense.layers_num_arr) # the number of layers
+        L = len(self.layers_num_arr) # the number of layers
         #print('num of layyers is ',L)
         m = self.caches[L][0].shape[1] #self.AL.shape[1]
         self.Y = self.Y.reshape(self.caches[L][0].shape)#(AL.shape) # after this line, Y is the same shape as AL
@@ -30,7 +34,7 @@ class Backward:  # make inheratnce to loss, and layers
         # print('DZ2', self.grads['dZ'+str(L)].shape)
         # print('-'*10,'\n done from fun', '-'*10)
         self.grads["dA" + str(L-1)], self.grads["dW" + str(L)], self.grads["db" + str(L)] = self._LinearActivaionBW(dAL,
-                                    L,linear_cache=current_cache,activation=Layer_Dense.layer_activations[L])
+                                    L,linear_cache=current_cache,activation=self.layer_activations[L])
         # print('grads eq','-'*10,'\n',self.grads)
         # exit()    
         # Loop from l=L-2 to l=0
@@ -43,14 +47,14 @@ class Backward:  # make inheratnce to loss, and layers
             current_cache = (self.caches[l-1][0],self.caches[l][1],self.caches[l][2])#self.caches[l]
 
             dA_prev_temp, dW_temp, db_temp =  self._LinearActivaionBW(self.grads['dA'+str(l)],
-                                    l,linear_cache=current_cache,activation=Layer_Dense.layer_activations[l])
+                                    l,linear_cache=current_cache,activation=self.layer_activations[l])
             self.grads["dA" + str(l-1)] = dA_prev_temp
             self.grads["dW" + str(l)] = dW_temp
             self.grads["db" + str(l)] = db_temp
 
         # return self.grads  
 
-    def backward(self):
+    def backward(self): # user call it 
         self._L_model_backward()
         return self._update_parameters(), self.grads
     
@@ -93,7 +97,7 @@ class Backward:  # make inheratnce to loss, and layers
 
     def _update_parameters(self):
                
-        L = len(Layer_Dense.layers_num_arr) // 2 # number of layers in the neural network
+        L = len(self.layers_num_arr) // 2 # number of layers in the neural network
         # Update rule for each parameter. Use a for loop.
         for l in range(L):
             self.parameters["W" + str(l+1)] =  self.parameters["W" + str(l+1)] - self.learning_rate * self.grads['dW'+str(l+1)]
