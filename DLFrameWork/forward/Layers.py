@@ -35,6 +35,11 @@ class Layer_Dense:
 
     #   passing data from activation function classes to Layer_Dens class
     def pass_act(self,act_type: str , A):
+        """
+        description 
+        @Param: ---
+        @Return: ---
+        """
         self._params['A'+ str(self.layer_number)] = A
         self.layer_activations[self.layer_number] = act_type
 
