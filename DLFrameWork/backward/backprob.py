@@ -1,7 +1,8 @@
 import numpy as np 
 from ..forward import Layer_Dense#,_params,layers_num_arr,layer_activations
 from ..forward import ReLU,Sigmoid,Tanh,Softmax,Identity
-
+from ..losses import SoftmaxCrossEntropy
+from ..optimizations import Momentum,Adam
 
 
 class Backward:  # make inheratnce to loss, and layers 
@@ -120,17 +121,25 @@ class Backward:  # make inheratnce to loss, and layers
     def _L_Backward(layers_num_arr,parameters,Y,LossDerivative,layer_activations):# caches):   
 
         caches = { i: (parameters['A'+str(i)],parameters['W'+str(i)],parameters['b'+str(i)]) if i != 0 else 
-                                (parameters['A'+str(i)],'_') for i in range(0,int(((len(parameters.keys())-1)/3)+1))}     
-        L = layers_num_arr # the number of layers
-        m = caches[L][0].shape[1] #self.AL.shape[1]
-        Y = Y.reshape(caches[L][0].shape)#(AL.shape) # after this line, Y is the same shape as AL
+                                (parameters['A'+str(i)],'_') for i in range(0,layers_num_arr+1)}     
+        L = layers_num_arr # the number of layers 2 
+        m = caches[L][0].shape[1] #self.AL.shape[1] # 6000 tmaaaaaam 
+        # print('AL shape {}, Y shape{}'.format(caches[L][0].shape,Y.shape))
+        # Y = Y.reshape(caches[L][0].shape)# msh tmam 
+        # after this line, Y is the same shape as AL
         grads = dict()
         # Initializing the backpropagation
-        dAL = LossDerivative # loss dervatie (dl/dy)
-        grads['dA'+str(L)] = dAL
-        current_cache = (caches[L-1][0],caches[L][1],caches[L][2]) 
-        grads["dA" + str(L-1)], grads["dW" + str(L)],grads["db" + str(L)] = Backward._StaticLinearActivaionBW(dAL,
-                                    L,linear_cache=current_cache,activation=layer_activations[L-1],grads=grads)
+        if layer_activations[L-1]  != 'SoftMax':
+            dAL = LossDerivative # loss dervatie (dl/dy)
+            grads['dA'+str(L)] = dAL # dA2 Henaaaaaa dl/dy === dl/da2
+            current_cache = (caches[L-1][0],caches[L][1],caches[L][2]) 
+            grads["dA" + str(L-1)], grads["dW" + str(L)],grads["db" + str(L)] = Backward._StaticLinearActivaionBW(dAL,
+                                        L,linear_cache=current_cache,activation=layer_activations[L-1],grads=grads)
+        else:   
+            dZ = SoftmaxCrossEntropy._Grad(caches[L][0],Y)     
+            current_cache = (caches[L-1][0],caches[L][1],caches[L][2])
+            grads["dA" + str(L-1)], grads["dW" + str(L)],grads["db" + str(L)] = Backward._StaticLinearBW(dZ,current_cache)
+
         # exit()    
         # Loop from l=L-2 to l=0
         # print('L cap is ', L)
@@ -150,10 +159,14 @@ class Backward:  # make inheratnce to loss, and layers
         return grads  
     @staticmethod
     def StaticBW(parameters,learning_rate,LossDerivative,Y,layersLen,layer_activations): # user call it 
-        # self._L_model_backward()
+         # normal gd
         grads = Backward._L_Backward(layers_num_arr=layersLen,parameters=parameters,Y=Y,LossDerivative=LossDerivative,layer_activations=layer_activations)
-        return Backward.StaticParamUpdate(layers_num_arr=layersLen,parameters=parameters,grads=grads,learning_rate=learning_rate)
-    
+        # return Backward.StaticParamUpdate(layers_num_arr=layersLen,parameters=parameters,grads=grads,learning_rate=learning_rate)
+        # momentum 
+
+        # adam 
+        v,s = Adam.initialize_adam(parameters=parameters,layerlen=layersLen)
+        return Adam.update_parameters(layerlen=layersLen,v=v,s=s,grads=grads,parameters=parameters,learning_rate=learning_rate)
     @staticmethod
     def _StaticLinearActivaionBW(dAL,l,linear_cache,activation='',grads=''):
         dZ = Backward._StaticBWActivations(dAL,l=l,activation=activation,grads=grads) # (1,1)dz2
@@ -173,16 +186,24 @@ class Backward:  # make inheratnce to loss, and layers
         elif activation == 'Tanh':
             grads['dZ'+str(l)] = Tanh.TanhBW_(dAL)
             return grads['dZ'+str(l)]
+        elif activation == 'SoftMax':
+            grads['dZ'+str(l)] = Softmax.SoftmaxBW_(dAL)
+            return grads['dZ'+str(l)]
+
     @staticmethod
     def _StaticLinearBW(dZ,cache):
         
         # print('cache in linear is', cache)
 
         A_prev, W, b = cache
-        #print('A_prev shape',A_prev.shape)
+        # print('A_prev shape',A_prev.shape)
         m = A_prev.shape[1]
+
         # print('DZ is', dZ)
         # print('DZ dim', dZ.shape, 'A_prev dim', A_prev.shape)
+        # dW = (1/m) * np.matmul(dZ,A_prev.T) # dz2 (1,1) * a1 (3*1)
+        # print('DZ shape ',dZ.shape)
+        # temp = A_prev.T if A_prev.shape[1] != 
         dW = (1/m) * np.matmul(dZ,A_prev.T) # dz2 (1,1) * a1 (3*1)
         db = (1/m) * np.sum(dZ,axis=1,keepdims=True)
         # print('W shape ',W.shape,'Dz.shape',dZ.shape )
