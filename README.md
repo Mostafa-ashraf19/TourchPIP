@@ -23,7 +23,7 @@ Or  = true positive + true negative / dataset size
   * ### Data Preprocessing 
       - After loading the data we have the option to perform some operation on the data. We Pass images to the data loader with batch size as desired normalize it, convert them into tensors and shuffle it. 
   * ### Data Visualisation  
-  ![birdy](https://github.com/E-KAB18/DL_framework/blob/main/birdy.png?raw=true)
+  ![birdy](https://github.com/Mostafa-ashraf19/DL_framework/blob/main/birdy.png?raw=true)
             
      
 ##  Implementation
