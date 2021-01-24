@@ -97,5 +97,12 @@ Or  = true positive + true negative / dataset size
 
 ## Installation and Usage
  * ### Usage
-    - At first the user needs to download & load the data whether it's MNIST or CIFAR, pass the data to the data loader and select if he wants to normalize it or shuffle 
+    - At first the user needs to download & load the data whether it's MNIST or CIFAR So, he can user either the __FashionMNIST__ or the __CIFAR-10 class__. Both classes allow the user to select the path he wants for the downloaded data, If he wants to download it of no and select which data he wants to use wheyher it's the train or test data
+    - Pass the chosen data to the data loader by passing the return of the FashionMNIST or the CIFAR-10 clas then select his batch size to work on, choose if he wants to normalize the data or shuffle. Now the data is ready to be passed to the next stage which is entering the designed dl neural network
     - After pre-processing the data the user need to build his neural network by creating the dense layers he needs and within he can select (the number of inputs , number of neurons, the desired activation function)
+    
+    <p align="center">
+    <img width = "460" src ="https://github.com/Mostafa-ashraf19/DL_framework-/blob/master/Images/Mnist_test_example.png " >
+    <p align="center"> User Test case.</p>
+    </p>
+ 
