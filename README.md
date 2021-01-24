@@ -24,6 +24,7 @@ Or  = true positive + true negative / dataset size
   * ### Data Visualisation  
     <p float="center">
        <img src="https://raw.githubusercontent.com/Mostafa-ashraf19/DL_framework-/master/Images/birdy.png?token=AN55WNTF74ET6SEXSCHFXTTAC3UFY" width="320" />
+       <p align="center">Correlation Matrix.</p>
        <img src="https://github.com/Mostafa-ashraf19/DL_framework-/blob/master/Images/CIFAR%20data%20vis.png" width="320" /> 
        <img src="https://github.com/Mostafa-ashraf19/DL_framework-/blob/master/Images/MNIST_Data_vis.png" width="320" />
     </p>
