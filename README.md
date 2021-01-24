@@ -67,7 +67,7 @@ Or  = true positive + true negative / dataset size
           
 <p align="center">
 <img width="460" height="400" src="https://raw.githubusercontent.com/Mostafa-ashraf19/DL_framework-/master/Images/activation.png?token=AN55WNU3NIXNW22K24ISVHLAC3T5A">
-<p align="center"> *activation.* </p>
+<p align="center"> __Activations.__ </p>
  </p>      
 
  * ### Losses 
@@ -94,7 +94,7 @@ Or  = true positive + true negative / dataset size
  
  <p align="center">
  <img width="460" height="460" src="https://raw.githubusercontent.com/Mostafa-ashraf19/DL_framework-/master/Images/DL_chart.jpg?token=AN55WNTF3PLJ3TSKGJYPOCLAC3UZC">
- <p align="center">DL_chart.</p>
+ <p align="center">DL Flow Chart.</p>
  </p>
 
 
