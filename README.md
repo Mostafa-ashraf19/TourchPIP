@@ -1,6 +1,5 @@
-# DL_framework
 # Build a Deep Learning Framework
- -  A DIY Deep Learning Framework that simulate real- worl frame works such as  that's able to handle datasets, split data and train and test models.
+ -  A DIY Deep Learning Framework that simulate real- world frame works such as  that's able to handle datasets, split data, train and test models.
 
 ## Problem Statement
 
@@ -23,8 +22,9 @@ Or  = true positive + true negative / dataset size
   * ### Data Preprocessing 
       - After loading the data we have the option to perform some operation on the data. We Pass images to the data loader with batch size as desired normalize it, convert them into tensors and shuffle it. 
   * ### Data Visualisation  
-  ![birdy](https://github.com/E-KAB18/DL_framework/blob/main/birdy.png?raw=true)
-            
+   <p align="center">
+    <img width="460" height="300" src="https://raw.githubusercontent.com/Mostafa-ashraf19/DL_framework-/master/Images/birdy.png?token=AN55WNTF74ET6SEXSCHFXTTAC3UFY">
+          </p>  
      
 ##  Implementation
    -The Dataframe core is divided into modules as follows :
@@ -64,7 +64,7 @@ Or  = true positive + true negative / dataset size
          2. Useful for output neurons—typically Softmax is used only for the output layer, for neural networks that need to classify inputs into multiple categories.
           
          
-  ![activation](https://github.com/E-KAB18/DL_framework/blob/main/activation.png?raw=true) \
+  ![activation](https://raw.githubusercontent.com/Mostafa-ashraf19/DL_framework-/master/Images/activation.png?token=AN55WNU3NIXNW22K24ISVHLAC3T5A) \
   * ### Losses 
       - we seek to minimize the error. As such, the objective function is often referred to as a cost function or a loss function and the value calculated by the loss function is referred to as simply “loss.”
 The cost or loss function has an important job in that it must faithfully distill all aspects of the model down into a single number in such a way that improvements in that number are a sign of a better model.
@@ -88,5 +88,5 @@ This can be a challenging problem as the function must capture the properties of
   
  
 
-![DL_chart](https://github.com/E-KAB18/DL_framework/blob/main/DL_chart.jpg?raw=true)
+![DL_chart](https://raw.githubusercontent.com/Mostafa-ashraf19/DL_framework-/master/Images/DL_chart.jpg?token=AN55WNTF3PLJ3TSKGJYPOCLAC3UZC)
 
