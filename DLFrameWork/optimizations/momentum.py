@@ -1,26 +1,28 @@
-
 import numpy as np
+
 class Momentum:
     def __init__(self,paramterts,lr=0.1,beta=0.9):
         self.params = paramterts
         self.lr = lr
         self.beta = beta 
         self.v = {}
-     
-    def initialize_velocity(self):
-        L = len(self.params) // 2
+    @staticmethod 
+    def initialize_velocity(parameter,layerlen):
+        L = layerlen 
         v = {}
         for l in range(L):
-            v['dW'+str(l+1)] = np.zeros(self.params['W'+str(l+1)].shape) 
-            v['db'+str(l+1)] = np.zeros(self.params['b'+str(l+1)].shape)
-        self.v = v 
-    def update(self):
-        L = len(self.params) // 2 
+            v['dW'+str(l+1)] = np.zeros(parameter['W'+str(l+1)].shape) 
+            v['db'+str(l+1)] = np.zeros(parameter['b'+str(l+1)].shape)
+        return v
+    @staticmethod    
+    def update(layerlen,v,parameter,lr,beta=0.9):
+        L = layerlen  
         for l in range(L):
-            self.v["dW" + str(l+1)] = (beta*self.v["dW" + str(l+1)]) + ((1-beta)*self.params['W'+str(l+1)])
-            self.v["db" + str(l+1)] = (beta*self.v["db" + str(l+1)]) + ((1-beta)*self.params['b'+str(l+1)])
-            self.params["W" + str(l+1)] = self.params["W" + str(l+1)] - (self.lr*self.v["dW" + str(l+1)])
-            self.params["b" + str(l+1)] = self.params["b" + str(l+1)] - (self.lr*self.v["db" + str(l+1)])
+            v["dW" + str(l+1)] = (beta*v["dW" + str(l+1)]) + ((1-beta)*parameter['W'+str(l+1)])
+            v["db" + str(l+1)] = (beta*v["db" + str(l+1)]) + ((1-beta)*parameter['b'+str(l+1)])
+            parameter["W" + str(l+1)] = parameter["W" + str(l+1)] - (lr*v["dW" + str(l+1)])
+            parameter["b" + str(l+1)] = parameter["b" + str(l+1)] - (lr*v["db" + str(l+1)])
+        return parameter
     def __repr__(self):
         self.initialize_velocity()
         self.update()
