@@ -23,14 +23,10 @@ Or  = true positive + true negative / dataset size
       - After loading the data we have the option to perform some operation on the data. We Pass images to the data loader with batch size as desired normalize it, convert them into tensors and shuffle it. 
   * ### Data Visualisation  
    <div style="align: left; text-align:center;">
-     <img src="https://raw.githubusercontent.com/Mostafa-ashraf19/DL_framework-/master/Images/birdy.png?token=AN55WNTF74ET6SEXSCHFXTTAC3UFY" height="31px" width="200px" />
-     <div class="caption" style="width: 200px">Some caption text</div>
+     <img src="https://raw.githubusercontent.com/Mostafa-ashraf19/DL_framework-/master/Images/birdy.png?token=AN55WNTF74ET6SEXSCHFXTTAC3UFY" height="300" width="300" />
+     <div class="caption" style="width: 300; text-align: center; >Data plotting</div>
     </div>
 
-.caption {
-    text-align: center;
-}
-     
 ##  Implementation
    -The Dataframe core is divided into modules as follows :
    * ### Layers 
