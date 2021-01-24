@@ -64,7 +64,7 @@ Or  = true positive + true negative / dataset size
          2. Useful for output neurons—typically Softmax is used only for the output layer, for neural networks that need to classify inputs into multiple categories.
           
          
-  ![activation](https://github.com/E-KAB18/DL_framework/blob/main/activation.png?raw=true) \
+  ![activation](https://raw.githubusercontent.com/Mostafa-ashraf19/DL_framework-/master/Images/activation.png?token=AN55WNU3NIXNW22K24ISVHLAC3T5A) \
   * ### Losses 
       - we seek to minimize the error. As such, the objective function is often referred to as a cost function or a loss function and the value calculated by the loss function is referred to as simply “loss.”
 The cost or loss function has an important job in that it must faithfully distill all aspects of the model down into a single number in such a way that improvements in that number are a sign of a better model.
