@@ -31,6 +31,7 @@ class Linear:
 
    
     def forward(self,X):
+        # print('shape of w is {}, shape of x if {}'.format(self.weights.shape,X.shape))
         Z = np.dot(self.weights,X) + self.biases # Z
         return Z 
     # # get weights
