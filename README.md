@@ -27,9 +27,10 @@ Or  = true positive + true negative / dataset size
             
      
 ##  Implementation
-  ##### The Dataframe core is divided into modules as follows :
+   -The Dataframe core is divided into modules as follows :
    * ### Layers 
-       - 
+       - The dense layer is a neural network layer that is connected deeply, which means each neuron in the dense layer receives input from all neurons of its previous layer. The dense layer is found to be the most commonly used layer in the models.
+       - The neurons, within each of the layer of a neural network, perform the same function. They simply calculate the weighted sum of inputs and weights, add the bias and execute an activation function.
        
   * ### Activation
        - __Sigmoid / Logistic__
@@ -60,7 +61,7 @@ Or  = true positive + true negative / dataset size
                  1. Vanishing Gradient problem
        - __Softmax__
          1. Able to handle multiple classes only one class in other activation functions—normalizes the outputs for each class between 0 and 1, and divides by their sum, giving the probability of the input value being in a specific class.
-         2. Useful for output neurons—typically Softmax is used only for the output layer, for neural networks that need to classify inputs into multiple categories. \
+         2. Useful for output neurons—typically Softmax is used only for the output layer, for neural networks that need to classify inputs into multiple categories.
           
          
   ![activation](https://github.com/E-KAB18/DL_framework/blob/main/activation.png?raw=true) \
@@ -71,7 +72,7 @@ In calculating the error of the model during the optimization process, a loss fu
 This can be a challenging problem as the function must capture the properties of the problem and be motivated by concerns that are important to the project and stakeholders.
  
   * ### Optimization
-      - Optimisers are supposed to avoid local minima and head for the global minimum as fast as possible. Different optimisers perform better for different surfaces, but there are a few that have proven useful for common use cases: 
+      - Optimisers are supposed to avoid local minima and head for the global minimum as fast as possible. Different optimisers perform better for different surfaces, but there are a few that have proven useful for common use cases. 
          -  __Gradient Descent__: 
            The basis for pretty much all other optimisation algorithms. As the name suggests, it is the most basic version of a gradient-based optimiser, naively using the same learning rate to update all parameters based on their gradients from the last step.
           - __Adam Optimization__:
