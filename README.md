@@ -24,7 +24,7 @@ Or  = true positive + true negative / dataset size
   * ### Data Visualisation  
    <div style="align: left; text-align:center;">
      <img src="https://raw.githubusercontent.com/Mostafa-ashraf19/DL_framework-/master/Images/birdy.png?token=AN55WNTF74ET6SEXSCHFXTTAC3UFY" height="300" width="300" />
-     <div class="caption" style="width: 300; text-align: center; >Data plotting</div>
+     <div class="caption" style="width: 300; text-align: center" >Data plotting</div>
     </div>
 
 ##  Implementation
