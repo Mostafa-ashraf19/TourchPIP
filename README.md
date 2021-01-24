@@ -71,7 +71,7 @@ In calculating the error of the model during the optimization process, a loss fu
 This can be a challenging problem as the function must capture the properties of the problem and be motivated by concerns that are important to the project and stakeholders.
  
   * ### Optimization
-      - Optimisers are supposed to avoid local minima and head for the global minimum as fast as possible. Different optimisers perform better for different surfaces, but there are a few that have proven useful for common use cases. 
+      - Optimisers are supposed to avoid local minima and head for the global minimum as fast as possible. Different optimisers perform better for different surfaces, but there are a few that have proven useful for common use cases: 
          -  __Gradient Descent__: 
            The basis for pretty much all other optimisation algorithms. As the name suggests, it is the most basic version of a gradient-based optimiser, naively using the same learning rate to update all parameters based on their gradients from the last step.
           - __Adam Optimization__:
