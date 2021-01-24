@@ -75,13 +75,12 @@ class Tanh:
 
 class Softmax:
     @staticmethod
-    def forward(inputs):
-        exp_x = np.exp(inputs.out)
-        probs = exp_x / np.sum(exp_x, axis=1, keepdims=True)
-        # inputs.pass_act('softmax',probs)
+    def Softmax_(inputs):
+        exp_x = np.exp(inputs)
+        probs = exp_x / exp_x.sum()
         return probs
     @staticmethod    
-    def softmax_grad(s): 
+    def SoftmaxBW_(s): 
         jacobian_m = np.diag(s)    
         for i in range(len(jacobian_m)):
             for j in range(len(jacobian_m)):
