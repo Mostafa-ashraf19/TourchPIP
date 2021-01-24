@@ -1,20 +1,9 @@
 import os
-# import shutil
-# import urllib.request
-# import zipfile
 import zipfile, urllib.request, shutil
 import requests
 
 
-MNIST_URL = 'https://storage.googleapis.com/kaggle-competitions-data/kaggle-v2/3004/861823/bundle/archive.zip?GoogleAccessId=web-data@kaggle-161607.iam.gserviceaccount.com&Expires=1611346866&Signature=nfS1R4EEvEym8%2FE5TF41PTEKmeHV0yRm%2BZ59igadyi6jKW5Pq620gMRJq7ZVeqPUNeT%2BVslHBms07g47Lj%2FmucOyAl37Hve0l3AtwauAgIDunduzKLfQ7qgp7TyLvNo3DsDRBSJ%2BiYf%2BZ7PIZ6UOArE7p1T1JUROvwejzYRjK8VfAaRH0VXEU%2BFFQUVXcdN8lxmYjFJbNFzy2Wv5m%2FENn6c9SN%2Fr6J1g4W9QnSukKHAhUnLvS1wSdO8RHtnbR27ofaDP4%2B3h0VE6LVRVtmNi%2Bj04K8bOERUKtdfgHeKIXRXlh2ZdZRM8DYoOaloVl2cYtCRyD5IFSxheUP0fbv3HnQ%3D%3D&response-content-disposition=attachment%3B+filename%3Ddigit-recognizer.zip'
-
-
-# class FashionMNIST:
-#     def __init__(self, path, download=True, train=True):
-
-
-# url = 'https://storage.googleapis.com/kaggle-competitions-data/kaggle-v2/3004/861823/bundle/archive.zip?GoogleAccessId=web-data@kaggle-161607.iam.gserviceaccount.com&Expires=1611346866&Signature=nfS1R4EEvEym8%2FE5TF41PTEKmeHV0yRm%2BZ59igadyi6jKW5Pq620gMRJq7ZVeqPUNeT%2BVslHBms07g47Lj%2FmucOyAl37Hve0l3AtwauAgIDunduzKLfQ7qgp7TyLvNo3DsDRBSJ%2BiYf%2BZ7PIZ6UOArE7p1T1JUROvwejzYRjK8VfAaRH0VXEU%2BFFQUVXcdN8lxmYjFJbNFzy2Wv5m%2FENn6c9SN%2Fr6J1g4W9QnSukKHAhUnLvS1wSdO8RHtnbR27ofaDP4%2B3h0VE6LVRVtmNi%2Bj04K8bOERUKtdfgHeKIXRXlh2ZdZRM8DYoOaloVl2cYtCRyD5IFSxheUP0fbv3HnQ%3D%3D&response-content-disposition=attachment%3B+filename%3Ddigit-recognizer.zip'
-# file_name = 'myzip.zip'
+MNIST_URL = 'https://drive.google.com/uc?id=1NjvEw9Ob7sJkEQLWPe_M-XhhZLYCx7lE&export=download'
 
 
 class FashionMNIST:
@@ -24,8 +13,9 @@ class FashionMNIST:
         self.train = train
         if self.download:
             self._Download()
-            
-        self.path = os.getcwd() + '/' + self.path + '/test.csv' if not self.train else os.getcwd() + '/' + self.path + '/train.csv '
+         
+        self.TrainFile = os.getcwd() + '/' + self.path + '/mnist_train.csv'
+        self.TestFile = os.getcwd() + '/' + self.path + '/mnist_test.csv'
 
     def _Download(self):
         if not os.path.exists(os.getcwd() + '/' + self.path):
@@ -37,5 +27,5 @@ class FashionMNIST:
             with zipfile.ZipFile(os.getcwd() + '/' + self.path + '/' + file_name) as zf:
                 zf.extractall(os.getcwd() + '/' + self.path + '/')
 
-
-# MNIST_Data = FashionMNIST("Esraa", True, True, )
+    def __repr__(self):
+        return self.TrainFile if self.train == True else self.TestFile
