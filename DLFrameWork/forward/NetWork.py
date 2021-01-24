@@ -7,7 +7,7 @@ from ..backward import Backward
 import numpy as np
 # from 
 from ..losses import SoftmaxCrossEntropy
-
+from ..optimizations import Optimizer
 
 ### combination ---->>> 1- network one time -- > train ,  pred, plot 
 #2- network on steps 
@@ -42,7 +42,7 @@ def _tupleDivide(tup):
     return layersShape
 
 class NetWork:
-    def __init__(self,LayersShape,activations):
+    def __init__(self,LayersShape,activations,optimizations={'GD':True}):
         self.LayersShape = LayersShape
         # print(_tupleDivide(LayersShape))
         self.createdLayers = [Linear(layer[0],layer[1],l_size=layer[1]) for layer in _tupleDivide(LayersShape)]
@@ -54,6 +54,7 @@ class NetWork:
         self.Zout = list()
         self.Aout = list()
         self.lossvalues = []
+        self.optimizer  = optimizations 
         # self.McreatedLayers
 
     def fit(self,X,Y,lossType='',learning_rate=0.1):#,lossClass):
@@ -84,10 +85,16 @@ class NetWork:
         
         
         ########## backward 
-        self.parameters = Backward.StaticBW(self.parameters,learning_rate=learning_rate,LossDerivative=lossD,
+        grads = Backward.StaticBW(self.parameters,learning_rate=learning_rate,LossDerivative=lossD,
                     Y=Y,layersLen=self.LayersLen,layer_activations=self.activations)
-        self._UpdateLayerParam()
         ###########
+        
+        ######### parameters update
+        optimizer = optimizer(self.parameters,grads=grads,optimiType=self.optimizer,LayersLen=self.LayersLen,lr=learning_rate)
+        # self.parameters = self._optimizerUsage(self.optimizations,grads=grads,lr=learning_rate)
+        self.parameters = optimizer.optimize()
+        self._UpdateLayerParam()
+        ###########################
 
         # print('parameters is ',self.parameters)            
         self.Aout.clear()
