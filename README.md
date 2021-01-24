@@ -25,7 +25,7 @@ Or  = true positive + true negative / dataset size
 
     <div class="row">
        <div class="column">
-        <img align="left" src="https://raw.githubusercontent.com/Mostafa-ashraf19/DL_framework-/master/Images/birdy.png?token=AN55WNTF74ET6SEXSCHFXTTAC3UFY" height="300" width="300" />
+         <img align="left" src="https://raw.githubusercontent.com/Mostafa-ashraf19/DL_framework-/master/Images/birdy.png?token=AN55WNTF74ET6SEXSCHFXTTAC3UFY"                       height="300" width="300" />
             <div class="caption" style="width: 300; text-align: center" > Data plotting </div>  
        </div>
        <div class="column">
@@ -33,7 +33,7 @@ Or  = true positive + true negative / dataset size
             <div class="caption" style="width: 300; text-align: center" > CIFAR_Data_Visualization </div>  
        </div>
        <div class="column">
-        <img src="https://github.com/Mostafa-ashraf19/DL_framework-/blob/master/Images/MNIST_Data_vis.png"  height="300" width="300" />
+        <img align="right" src="https://github.com/Mostafa-ashraf19/DL_framework-/blob/master/Images/MNIST_Data_vis.png"  height="300" width="300" />
        </div>     
     </div>
 ##  Implementation
