@@ -22,10 +22,10 @@ Or  = true positive + true negative / dataset size
   * ### Data Preprocessing 
       - After loading the data we have the option to perform some operation on the data. We Pass images to the data loader with batch size as desired normalize it, convert them into tensors and shuffle it. 
   * ### Data Visualisation  
-    <p float="left">
-       <img src="https://raw.githubusercontent.com/Mostafa-ashraf19/DL_framework-/master/Images/birdy.png?token=AN55WNTF74ET6SEXSCHFXTTAC3UFY" width="100" />
-       <img src="https://github.com/Mostafa-ashraf19/DL_framework-/blob/master/Images/CIFAR%20data%20vis.png" width="100" /> 
-       <img src="https://github.com/Mostafa-ashraf19/DL_framework-/blob/master/Images/MNIST_Data_vis.png" width="100" />
+    <p float="center">
+       <img src="https://raw.githubusercontent.com/Mostafa-ashraf19/DL_framework-/master/Images/birdy.png?token=AN55WNTF74ET6SEXSCHFXTTAC3UFY" width="200" />
+       <img src="https://github.com/Mostafa-ashraf19/DL_framework-/blob/master/Images/CIFAR%20data%20vis.png" width="200" /> 
+       <img src="https://github.com/Mostafa-ashraf19/DL_framework-/blob/master/Images/MNIST_Data_vis.png" width="200" />
     </p>
     
 ##  Implementation
