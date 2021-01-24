@@ -1,5 +1,6 @@
 import pandas
 import numpy as np
+import math
 
 class DataLoaderIterator:
     def __init__(self,dataloader):
@@ -10,6 +11,7 @@ class DataLoaderIterator:
             result = self.dataloader.__next__() 
             self.index +=1
             return result[0],result[1] 
+        self.dataloader.current_position = 0    
         raise StopIteration
         
 class DataLoader:
@@ -30,7 +32,12 @@ class DataLoader:
         self.shuffling = shuffling
         self.normalization = normalization['Transform'] if type(normalization['Transform']) == bool else RuntimeError('should be bool value ') 
         # self.transform = transform
-        self.iternums = 5
+        # self.iternums = 5
+        # print('path ', self.path)
+        fileObject = open(self.path)
+        row_count = sum(1 for row in fileObject) 
+        self.iternums = math.ceil((row_count-1) / batchsize) - 5
+        print('iter num is',self.iternums)
 
     def __iter__(self):
            return DataLoaderIterator(self)  #[1,2,4,5,6,7], [11,11,11,11,11,11]
