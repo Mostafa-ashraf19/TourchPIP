@@ -161,12 +161,13 @@ class Backward:  # make inheratnce to loss, and layers
     def StaticBW(parameters,learning_rate,LossDerivative,Y,layersLen,layer_activations): # user call it 
          # normal gd
         grads = Backward._L_Backward(layers_num_arr=layersLen,parameters=parameters,Y=Y,LossDerivative=LossDerivative,layer_activations=layer_activations)
+        return grads
         # return Backward.StaticParamUpdate(layers_num_arr=layersLen,parameters=parameters,grads=grads,learning_rate=learning_rate)
         # momentum 
 
         # adam 
-        v,s = Adam.initialize_adam(parameters=parameters,layerlen=layersLen)
-        return Adam.update_parameters(layerlen=layersLen,v=v,s=s,grads=grads,parameters=parameters,learning_rate=learning_rate)
+        # v,s = Adam.initialize_adam(parameters=parameters,layerlen=layersLen)
+        # return Adam.update_parameters(layerlen=layersLen,v=v,s=s,grads=grads,parameters=parameters,learning_rate=learning_rate)
     @staticmethod
     def _StaticLinearActivaionBW(dAL,l,linear_cache,activation='',grads=''):
         dZ = Backward._StaticBWActivations(dAL,l=l,activation=activation,grads=grads) # (1,1)dz2
@@ -215,13 +216,13 @@ class Backward:  # make inheratnce to loss, and layers
         assert (db.shape == b.shape)
         
         return dA_prev, dW, db
-    @staticmethod
-    def StaticParamUpdate(layers_num_arr,parameters,grads,learning_rate):
+    # @staticmethod
+    # def StaticParamUpdate(layers_num_arr,parameters,grads,learning_rate):
                
-        L = layers_num_arr // 2 # number of layers in the neural network
-        # Update rule for each parameter. Use a for loop.
-        for l in range(L):
-            parameters["W" + str(l+1)] = parameters["W" + str(l+1)] - learning_rate * grads['dW'+str(l+1)]
-            parameters["b" + str(l+1)] = parameters["b" + str(l+1)] - learning_rate * grads['db'+str(l+1)]
-        grads.clear()
-        return parameters     
+    #     L = layers_num_arr  # number of layers in the neural network
+    #     # Update rule for each parameter. Use a for loop.
+    #     for l in range(1,L+1):
+    #         parameters["W" + str(l+1)] = parameters["W" + str(l+1)] - learning_rate * grads['dW'+str(l+1)]
+    #         parameters["b" + str(l+1)] = parameters["b" + str(l+1)] - learning_rate * grads['db'+str(l+1)]
+    #     grads.clear()
+    #     return parameters     
