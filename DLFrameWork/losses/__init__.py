@@ -3,5 +3,5 @@ from .SD import SD
 from .Biploar_SVM import Biploar_SVM 
 # from .last import multi_class_SVM,multi_class_perceptron,softmax_cross_entropy
 from .SoftmaxCrossEntropy import SoftmaxCrossEntropy
-from .MultiClassSVM import MultiClassSVM
+# from .MultiClassSVM import MultiClassSVM
 from .MultiClassPerceptron import  MultiClassPerceptron
