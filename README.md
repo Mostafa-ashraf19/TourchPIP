@@ -96,5 +96,6 @@ Or  = true positive + true negative / dataset size
 
 
 ## Installation and Usage
-
-
+ * ### Usage
+    - At first the user needs to download & load the data whether it's MNIST or CIFAR, pass the data to the data loader and select if he wants to normalize it or shuffle 
+    - After pre-processing the data the user need to build his neural network by creating the dense layers he needs and within he can select (the number of inputs , number of neurons, the desired activation function)
