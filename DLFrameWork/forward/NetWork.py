@@ -1,10 +1,12 @@
 from .Linear import Linear
 from . import Sigmoid
-from . import ReLU,Sigmoid,Tanh,Softmax,Identity
+from . import ReLU,Sigmoid,Tanh,Softmax,Identity,Softmax
 from itertools import repeat
 from ..losses import SD#, Biploar_SVM ,BiploarPerceptron
 from ..backward import Backward
 import numpy as np
+# from 
+from ..losses import SoftmaxCrossEntropy
 
 
 ### combination ---->>> 1- network one time -- > train ,  pred, plot 
@@ -64,12 +66,20 @@ class NetWork:
         # loss = SD._Loss(self.Aout[self.LayersLen-1],Y)
         # cost = SD._Cost(self.Aout[self.LayersLen-1],Y)
         # print(self.Aout[self.LayersLen-1],Y)
-        cost = compute_cost(self.Aout[self.LayersLen-1],Y)
+        # print('shapes is ',self.Aout[self.LayersLen-1].shape,'', Y.T.shape)
+        cost = SoftmaxCrossEntropy._Cost(self.Aout[self.LayersLen-1],Y)
+        
+        # print('Cost is',cost)
+        # cost = compute_cost(self.Aout[self.LayersLen-1],Y)
         # loss = lossClass._Loss(self.Aout[self.LayersLen-1],Y)
 
 
         # lossD = SD._Grad(self.Aout[self.LayersLen-1],Y)
-        lossD = lossgrad(self.Aout[self.LayersLen-1],Y)
+        # lossD = lossgrad(self.Aout[self.LayersLen-1],Y)
+        # lossD = SoftmaxCrossEntropy._Grad(self.Aout[self.LayersLen-1],Y.T)
+        lossD = 10
+        # Y label 
+        # print('loss drvative is ', lossD.shape)
         # lossD = lossClass._Grad(self.Aout[self.LayersLen-1],Y)
         
         
@@ -102,10 +112,10 @@ class NetWork:
             # print('weights and bias is {}'.format(self.createdLayers[i].__reper__()))
 
     def _ConstructParams(self):
-        for i in range(1,len(self.createdLayers)+1):
-            self.parameters['W'+str(i)],self.parameters['b'+str(i)] = self.createdLayers[i-1].__reper__()
-            self.parameters['Z'+str(i)] = self.Zout[i-1]
-            self.parameters['A'+str(i)] = self.Aout[i-1]
+        for i in range(len(self.createdLayers)):
+            self.parameters['W'+str(i+1)],self.parameters['b'+str(i+1)] = self.createdLayers[i].__reper__()
+            self.parameters['Z'+str(i+1)] = self.Zout[i]
+            self.parameters['A'+str(i+1)] = self.Aout[i]
         
             
         # pass
@@ -167,7 +177,10 @@ class NetWork:
             # print('Hello from Sigmoid')
             return Sigmoid.sigmoid_(zOut)
         elif activation == 'Tanh':
-            return Tanh.Tanh_(zOut)   
+            return Tanh.Tanh_(zOut) 
+        elif activation == 'SoftMax':
+            return Softmax.Softmax_(zOut)    
+        # elif activation       
         # AssertionError ()
         assert 'No Activation Setted\n'         
 
