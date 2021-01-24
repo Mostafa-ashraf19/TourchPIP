@@ -88,5 +88,5 @@ This can be a challenging problem as the function must capture the properties of
   
  
 
-![DL_chart](https://github.com/E-KAB18/DL_framework/blob/main/DL_chart.jpg?raw=true)
+![DL_chart](https://raw.githubusercontent.com/Mostafa-ashraf19/DL_framework-/master/Images/DL_chart.jpg?token=AN55WNTF3PLJ3TSKGJYPOCLAC3UZC)
 
