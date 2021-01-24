@@ -1,82 +1,65 @@
-from ..forward import Sigmoid,ReLU,Tanh,Linear,Identity 
-import numpy as np
+# import numpy as np
+
+# class multi_class_SVM:
 
 
-class MultiClassSVM: #(Layer_Dense): #y_true, y_out , a_prelast , w, act_fc , b
-    def  __init__ (self , y_out , y_true):
-        self.y_true=y_true-1
-        self.y_out=y_out
-        self.grads={}   
+#     @staticmethod
+#     def _Cost(prediction,label):
 
-    @staticmethod
-    def loss(AL,ZL,y_true,layers_num_arr,_params,layer_activations):
-        sample_loss=0
-        count = 0
-        last_layer=len(layers_num_arr)
-        a_prelast= _params['A'+ str(last_layer-1)] 
-        z=_params['Z'+ str(last_layer)]
-        dW = np.zeros((len(z), len(a_prelast)+1))
-        dA_prev = np.zeros((len( z), len(a_prelast)))
-        a_prelast= np.append( a_prelast ,1).T
-        w= _params['W'+ str(last_layer)] 
-        act_fc= layer_activations[ last_layer]
-        dl_dz=(np.zeros(len(z))).reshape(len(z) , 1)
+#         lossval=0
 
-        label = y_true
+#         for i in range(label.shape[1]):
 
-        if act_fc == Sign or act_fc == Identity or act_fc == None :
+#             ind=label[0,i]
+
+#             y_label=prediction[ind][i]
+            
+#             for j in range(prediction.shape[0]):
+
+#                 if max(1+prediction[j][i]-y_label , 0) and j!= ind:
+
+#                     lossval+=1+prediction[j][i]-y_label
+
+#         m = label.shape[1] # datasize 
+#         cost = lossval/m
+
+#         return cost
 
         
-            for i in range(len(z)):
 
-                if max(1+z[i]-z[label] , 0) and i!= label:
-                    count+=1
-                    dW[i]=a_prelast
-                    dA_prev[i] =w[i]
-                    dl_dz[i] =1
-                    sample_loss+=1+z[i]-z[label]
+          
 
-                
     
-            if count >0:
+    
+#     @staticmethod
+#     def _Grad(prediction,label) :
+        
+        
+#         dl_dy=np.zeros_like(prediction)
 
-                dW[label]= -count * a_prelast
-                dA_prev[label]=  w[label]
-                dl_dz[label] = -count
-                
+#         for i in range (label.shape[1]):
+#             ind=label[0,i]
 
+#             y_label=prediction[ind][i]
 
-            dl_db=dW[:,-1]
-            dl_db=dl_db.reshape(len(z),1)
-            grads['dW'+str(last_layer)] = dW[:,:-1]
-            grads['db'+str(last_layer)] =dl_db
-            grads['dA'+str(last_layer)] = np.dot(dA_prev.T , dl_dz).reshape(len(a_prelast)-1 ,1)
-
-
+#             count = 0
             
+#             for j in range(prediction.shape[0]):
 
-        else:
-            for i in range(len(y_out)):
+#                 if max(1+prediction[j][i]-y_label , 0) and j!= ind:
 
-                if max(1+y_out[i]- y_out[label] , 0) and i!= label:
-                    count+=1
-                
-                    dl_dz[i] =act_fc.backwards(y_out[i])
+#                     count+=1
+#                     dl_dy[j][i]=1
+                    
 
-                    dW[i] =  a_prelast * dl_dz[i]
-                    dA_prev[i] = w[i] 
-                    sample_loss+=1+ y_out[i] - y_out[label]    
-            if count >0:
+#             if count>0:
 
-                dl_dz[label] =act_fc.backwards(y_out[label]) * -count
+#                 dl_dy[ind][i]=-count
 
-                dW[label] =  a_prelast * dl_dz[label]
-                dA_prev[label] = w[label] 
-            dl_db=dW[:,-1]
-            dl_db=dl_db.reshape(len(z),1)
-            grads['dW'+str(last_layer)] = dW[:,:-1]
-            grads['db'+str(last_layer)] =dl_db
-            grads['dA'+str(last_layer)] = (np.dot(dA_prev.T , dl_dz)).reshape(len(a_prelast)-1 ,1)        
-        return sample_loss 
     
+        
+#         return  dl_dy
 
+    
+    
+   
