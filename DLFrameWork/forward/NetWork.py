@@ -140,10 +140,30 @@ class NetWork:
         for Layer,activation in zip(self.createdLayers,self.activations):
             zOut = Layer.forward(aOut)
             aOut = NetWork.ActivationCalc(zOut,activation)
-        return aOut    
+        return aOut  
 
-    # binay classfication    
     def Prediction(self,X,Y,parameter):
+        if  self.LayersShape[-1] > 1:
+            return self._MultiPrediction(X,Y,parameter)
+        return self._BinaryPrediction(X,Y,parameter)
+    # multi classfication       
+    def _MultiPrediction(self,X,Y,parameter):
+        m = X.shape[1]
+        p = np.zeros((1,m))
+        
+        probas = self.FWD_predict(X)
+
+        for i in range(0, probas.shape[1]):
+
+            m = max(probas[:,i])
+            max_indexes=[s for s, t in enumerate(probas[:,i]) if t == m]
+
+            p.append(max_indexes[0])
+    
+        print("Accuracy: "  + str(np.sum((p == Y)/m)))
+        return p
+    # binay classfication    
+    def _BinaryPrediction(self,X,Y,parameter):
         m = X.shape[1]
         n = self.LayersLen # number of layers in the neural network
         p = np.zeros((1,m))
