@@ -24,7 +24,6 @@ Or  = true positive + true negative / dataset size
   * ### Data Visualisation  
     <p float="center">
        <img src="https://raw.githubusercontent.com/Mostafa-ashraf19/DL_framework-/master/Images/birdy.png?token=AN55WNTF74ET6SEXSCHFXTTAC3UFY" width="320" />
-       <p align="center">Correlation Matrix.</p>
        <img src="https://github.com/Mostafa-ashraf19/DL_framework-/blob/master/Images/CIFAR%20data%20vis.png" width="320" /> 
        <img src="https://github.com/Mostafa-ashraf19/DL_framework-/blob/master/Images/MNIST_Data_vis.png" width="320" />
     </p>
@@ -66,9 +65,12 @@ Or  = true positive + true negative / dataset size
          1. Able to handle multiple classes only one class in other activation functions—normalizes the outputs for each class between 0 and 1, and divides by their sum, giving the probability of the input value being in a specific class.
          2. Useful for output neurons—typically Softmax is used only for the output layer, for neural networks that need to classify inputs into multiple categories.
           
-         
-  ![activation](https://raw.githubusercontent.com/Mostafa-ashraf19/DL_framework-/master/Images/activation.png?token=AN55WNU3NIXNW22K24ISVHLAC3T5A) \
-  * ### Losses 
+<p align="center">
+<img width="460" height="300" src="https://raw.githubusercontent.com/Mostafa-ashraf19/DL_framework-/master/Images/activation.png?token=AN55WNU3NIXNW22K24ISVHLAC3T5A">
+<p align="center">activation.</p>
+ </p>      
+
+* ### Losses 
       - we seek to minimize the error. As such, the objective function is often referred to as a cost function or a loss function and the value calculated by the loss function is referred to as simply “loss.”
 The cost or loss function has an important job in that it must faithfully distill all aspects of the model down into a single number in such a way that improvements in that number are a sign of a better model.
 In calculating the error of the model during the optimization process, a loss function must be chosen.
@@ -90,6 +92,9 @@ This can be a challenging problem as the function must capture the properties of
   
   
  
+ <p align="center">
+ <img width="460" height="300" src="https://raw.githubusercontent.com/Mostafa-ashraf19/DL_framework-/master/Images/DL_chart.jpg?token=AN55WNTF3PLJ3TSKGJYPOCLAC3UZC">
+ <p align="center">DL_chart.</p>
+ </p>
 
-![DL_chart](https://raw.githubusercontent.com/Mostafa-ashraf19/DL_framework-/master/Images/DL_chart.jpg?token=AN55WNTF3PLJ3TSKGJYPOCLAC3UZC)
 
