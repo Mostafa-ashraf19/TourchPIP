@@ -67,7 +67,7 @@ Or  = true positive + true negative / dataset size
           
 <p align="center">
 <img width="460" height="400" src="https://raw.githubusercontent.com/Mostafa-ashraf19/DL_framework-/master/Images/activation.png?token=AN55WNU3NIXNW22K24ISVHLAC3T5A">
-<p align="center"> __Activations.__ </p>
+<p align="center">Activations.</p>
  </p>      
 
  * ### Losses 
@@ -88,13 +88,13 @@ Or  = true positive + true negative / dataset size
           - __Momentum Optimization__:
            Momentum [1] or SGD with momentum is method which helps accelerate gradients vectors in the right directions so instead of using only the gradient of the current step to guide the search, momentum also accumulates the gradient of the past steps to determine the direction to go,thus leading to faster converging. It is one of the most popular optimization algorithms and many state-of-the-art models are trained using it.
            
-            
-  
-  
- 
+
  <p align="center">
  <img width="460" height="460" src="https://raw.githubusercontent.com/Mostafa-ashraf19/DL_framework-/master/Images/DL_chart.jpg?token=AN55WNTF3PLJ3TSKGJYPOCLAC3UZC">
  <p align="center">DL Flow Chart.</p>
  </p>
+
+
+## Installation and Usage
 
 
