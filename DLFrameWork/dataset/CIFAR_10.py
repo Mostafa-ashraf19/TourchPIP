@@ -60,7 +60,4 @@ class CIFAR_10:
         return self.TrainFile if self.train == True else self.TestFile
 
 
-CIFAR10_data = CIFAR_10('blah', False, False)
-# CIFAR10_data.toCSV()
-print(CIFAR10_data)
 
