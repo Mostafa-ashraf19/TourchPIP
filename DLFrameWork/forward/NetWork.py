@@ -88,8 +88,8 @@ class NetWork:
     def _CalcFWD(self,X):
         aOut = X
         self.parameters['A0'] = X
-        for Layer,activation in zip(self.createdLayers,self.activations):
-            zOut = Layer.forward(aOut)
+        for layer,activation in zip(self.createdLayers,self.activations):
+            zOut = layer.forward(aOut)
             self.Zout.append(zOut)
             aOut = NetWork.ActivationCalc(zOut,activation)
             self.Aout.append(aOut) 
@@ -157,3 +157,19 @@ class NetWork:
             
     def save_model(self,path):
         pass
+
+    def save_model(self,path):
+        
+        with open(path, 'w') as filehandle:
+            filehandle.write('%s\n' % self.LayersLen)               #print number of layers created
+            filehandle.write('-'*60)                                #--------------
+            for listitem in self.activations:                       #print activations
+                filehandle.write('%s\n' % listitem) 
+            filehandle.write('-'*60)                                #--------------
+            for i in range(self.LayersLen): 
+                for listitem in self.parameters['W'+ str(i+1)]:       #print weights
+                    filehandle.write('%s\n' % listitem)
+                filehandle.write('-'*60)                            #--------------
+                for listitem in self.parameters['b'+ str(i+1)]:       #print biases
+                    filehandle.write('%s\n' % listitem)
+                filehandle.write('-'*60)                            #--------------
