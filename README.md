@@ -1,5 +1,5 @@
 # Build a Deep Learning Framework
- -  A TourchPIP DIY is a Deep Learning Framework that simulate real- world frame works such as  that's able to handle datasets, split data, train and test models.
+ -  A [TourchPIP DIY](https://github.com/Mostafa-ashraf19/TourchPIP/blob/master/Project%20Description/Neural%20Networks%20project%20description.pdf) is a Deep Learning Framework that simulate real- world frame works such as  that's able to handle datasets, split data, train and test models.
 
 ## Problem Statement
 
@@ -115,4 +115,4 @@ Or  = true positive + true negative / dataset size
    -  > pip install TourchPIP
  
 ## [Colab Notebook](https://l.messenger.com/l.php?u=https%3A%2F%2Fcolab.research.google.com%2Fdrive%2F1zJx87aXbK2Kuaek5iLooJu6VbVbSEVT_%3Fusp%3Dsharing&h=AT3kYo2PutPuLJqlH4DHdAojMco0k6Fwv6SmQZ7-mwzDw-DeRP-BIyRnUNTGUvY05R7WQsLwLAExWDTtZdug8hvunQ-K5POIt0yLWh58bfxHWvU2EilYoeIUYmlqfvoeEMrZ-Aink)
-## [Project Description] (https://github.com/Mostafa-ashraf19/TourchPIP/blob/master/Project%20Description/Neural%20Networks%20project%20description.pdf)
+
