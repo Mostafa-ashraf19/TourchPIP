@@ -31,16 +31,13 @@ class DataLoader:
         self.batchsize = batchsize
         self.shuffling = shuffling
         self.normalization = normalization['Transform'] if type(normalization['Transform']) == bool else RuntimeError('should be bool value ') 
-        # self.transform = transform
-        # self.iternums = 5
-        # print('path ', self.path)
         fileObject = open(self.path)
         row_count = sum(1 for row in fileObject) 
         self.iternums = math.ceil((row_count-1) / batchsize) - 5
         print('iter num is',self.iternums)
 
     def __iter__(self):
-           return DataLoaderIterator(self)  #[1,2,4,5,6,7], [11,11,11,11,11,11]
+           return DataLoaderIterator(self) 
     def __next__(self):
             df = pandas.read_csv(self.path, skiprows=self.current_position,nrows=self.batchsize)  
             self.current_position += self.batchsize
