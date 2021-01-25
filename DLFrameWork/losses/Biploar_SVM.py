@@ -15,20 +15,14 @@ class Biploar_SVM(Layer_Dense) :
         
     def grad(self):
         L = len(Layer_Dense.layer_activations.keys())
-        #for l in reversed(range(L)):
         act_fc=Layer_Dense.layer_activations[L]
    
         if (self.lable*self.parameters['Z'+str(L)] )> 1:
-            #for l in reversed(range(L)):
                 self.dl['dW'+str(L)] = np.zeros(self.parameters['W'+str(L)].shape)
                 self.dl['db'+str(L)] = np.zeros(self.parameters['b'+str(L)].shape)
                 self.dl['dA'+str(L)] = np.zeros(self.parameters['A'+str(L)].shape)
-                 #dl_dw[l]= np.zeros(self.parameters['rW'+str(l)].shape)
-                 #dl_db[l]=np.zeros(self.parameters['b'+str(l)].shape)
         else :
-            #for l in reversed(range(L)):
             dl_activation=[]
-            #print(dl_activation)
             if act_fc == 'sigmoid':
                sig_inst=Sigmoid()
                dl_activation = sig_inst.backwards(self.parameters['Z'+str(L)]) 
