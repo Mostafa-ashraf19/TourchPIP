@@ -4,19 +4,20 @@ from setuptools import setup, find_packages
 HERE = pathlib.Path(__file__).parent
 
 VERSION = '0.1.0'
-PACKAGE_NAME = 'DLFrameWork'
+PACKAGE_NAME = 'TourchPIP'
 AUTHOR = ''
 AUTHOR_EMAIL = ''
-URL = 'https://github.com/Mostafa-ashraf19/DL_framework-.git'
+URL = 'https://github.com/Mostafa-ashraf19/TourchPIP'
 
-LICENSE = 'MIT License '
+LICENSE = 'MIT'
 DESCRIPTION = 'DL Framework help you to build simple neural network'
 LONG_DESCRIPTION = (HERE / "README.md").read_text()
 LONG_DESC_TYPE = "text/markdown"
 
 INSTALL_REQUIRES = [
       'numpy',
-      'pandas'
+      'pandas',
+      'matplotlib'
 ]
 
 setup(name=PACKAGE_NAME,
@@ -29,5 +30,6 @@ setup(name=PACKAGE_NAME,
       author_email=AUTHOR_EMAIL,
       url=URL,
       install_requires=INSTALL_REQUIRES,
-      packages=find_packages()
+      packages=find_packages(),
+      download_url='https://github.com/Mostafa-ashraf19/TourchPIP/archive/v_01.tar.gz'
       )
