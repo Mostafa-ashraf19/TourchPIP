@@ -94,9 +94,16 @@ Or  = true positive + true negative / dataset size
  <p align="center">DL Flow Chart.</p>
  </p>
 
+## Getting Started
 
-## Installation and Usage
- * ### Usage
+These instructions will get you a copy of the project up and running on your local machine  for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+
+ - **Prerequisites**
+ 
+ > pip install TourchPIP
+   
+ - **Usage**
+ 
     - At first the user needs to download & load the data whether it's MNIST or CIFAR So, he can use either the __FashionMNIST__ or the __CIFAR-10 class__. Both classes allow the user to select the path he wants for the downloaded data, If he wants to download it of no and select which data he wants to use whether it's the train or test data
         <p align="center"> FMNIST = FashionMNIST(path='MNIST_Data',download=True,train=True) </p>
     
@@ -108,11 +115,11 @@ Or  = true positive + true negative / dataset size
     - Once the user is done with loading the data and building his neural network what's left to do is to start training his model. This is done by selecting the number of the iterations then feeding the model with the data we got from the data loader and calculate the loss.
     
     <p align="center">
-    <img width = "460" src ="https://github.com/Mostafa-ashraf19/DL_framework-/blob/master/Images/Mnist_test_example.png " >
+    <img width = "460" src ="https://github.com/Mostafa-ashraf19/DL_framework-/blob/master/Images/Mnist_test_example.png" >
     <p align="center"> User Test case.</p>
     </p>
-  * ### Installation
-   -  > pip install TourchPIP
+    
+--- 
  
 ## [Colab Notebook](https://l.messenger.com/l.php?u=https%3A%2F%2Fcolab.research.google.com%2Fdrive%2F1zJx87aXbK2Kuaek5iLooJu6VbVbSEVT_%3Fusp%3Dsharing&h=AT3kYo2PutPuLJqlH4DHdAojMco0k6Fwv6SmQZ7-mwzDw-DeRP-BIyRnUNTGUvY05R7WQsLwLAExWDTtZdug8hvunQ-K5POIt0yLWh58bfxHWvU2EilYoeIUYmlqfvoeEMrZ-Aink)
 
