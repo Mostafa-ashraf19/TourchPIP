@@ -19,7 +19,6 @@ def _tupleDivide(tup):
 class NetWork:
     def __init__(self,LayersShape,activations,optimType={'GD':True}):
         self.LayersShape = LayersShape
-        print(_tupleDivide(LayersShape))
         self.createdLayers = [Linear(layer[0],layer[1],l_size=layer[0]) for layer in _tupleDivide(LayersShape)]
         self.activations = list(repeat(activations, len(self.createdLayers))) if type(activations) == str \
                                                 else activations 
@@ -110,15 +109,12 @@ class NetWork:
     def _MultiPrediction(self,X,Y,parameter):
         m = X.shape[1]
         p = list()#np.zeros((1,m))
-        print('m is ', m )
         probas = self.FWD_predict(X)
-        print('prob is {}, label is {}'.format(probas,Y))
         for i in range(0, probas.shape[1]):
             m = max(probas[:,i])
             max_indexes=[s for s, t in enumerate(probas[:,i]) if t == m]
             p.append(max_indexes[0])
     
-        print("Accuracy: "  + str(np.sum((p == Y)/m)))
         return p
     # binay classfication    
     def _BinaryPrediction(self,X,Y,parameter):
@@ -134,7 +130,6 @@ class NetWork:
             else:
                 p[0,i] = 0
         
-        print("Accuracy: "  + str(np.sum((p == Y)/m)))
         return p
         # pass 
     @staticmethod
