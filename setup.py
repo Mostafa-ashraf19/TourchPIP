@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 HERE = pathlib.Path(__file__).parent
 
-VERSION = '0.1.0'
+VERSION = '0.1.2'
 PACKAGE_NAME = 'TourchPIP'
 AUTHOR = ''
 AUTHOR_EMAIL = ''
@@ -17,7 +17,8 @@ LONG_DESC_TYPE = "text/markdown"
 INSTALL_REQUIRES = [
       'numpy',
       'pandas',
-      'matplotlib'
+      'matplotlib',
+      'requests'
 ]
 
 setup(name=PACKAGE_NAME,
@@ -31,5 +32,5 @@ setup(name=PACKAGE_NAME,
       url=URL,
       install_requires=INSTALL_REQUIRES,
       packages=find_packages(),
-      download_url='https://github.com/Mostafa-ashraf19/TourchPIP/archive/v_01.tar.gz'
+      download_url='https://github.com/Mostafa-ashraf19/TourchPIP/archive/v_01.1.tar.gz'
       )
