@@ -1,6 +1,7 @@
 import os
 import zipfile, urllib.request, shutil
 import requests
+import matplotlib.pyplot as plt
 
 
 MNIST_URL = 'https://drive.google.com/uc?id=1NjvEw9Ob7sJkEQLWPe_M-XhhZLYCx7lE&export=download'
@@ -29,3 +30,6 @@ class FashionMNIST:
 
     def __repr__(self):
         return self.TrainFile if self.train == True else self.TestFile
+    def plot(self,image):
+        plt.imshow(image.reshape(28,28))
+        plt.show()    
