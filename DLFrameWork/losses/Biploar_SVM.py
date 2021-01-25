@@ -26,7 +26,6 @@ class Biploar_SVM(Layer_Dense) :
             if act_fc == 'sigmoid':
                sig_inst=Sigmoid()
                dl_activation = sig_inst.backwards(self.parameters['Z'+str(L)]) 
-               print(dl_activation)
   
             elif act_fc == 'relu':
                 relu_inst =ReLU()
