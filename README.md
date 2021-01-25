@@ -1,5 +1,5 @@
 # Build a Deep Learning Framework
- -  A TourchPIP DIY Deep Learning Framework that simulate real- world frame works such as  that's able to handle datasets, split data, train and test models.
+ -  A TourchPIP DIY is a Deep Learning Framework that simulate real- world frame works such as  that's able to handle datasets, split data, train and test models.
 
 ## Problem Statement
 
