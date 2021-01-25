@@ -10,10 +10,9 @@ class Sigmoid:
     @staticmethod
     def sigmoid_(inputs):
         return 1 / (1 + (np.exp(-inputs)))
-        # pass
     @staticmethod    
     def sigmoidBW_(inputs):
-        return Sigmoid.sigmoid_(inputs)* (1-Sigmoid.sigmoid_(inputs))    
+        return Sigmoid.sigmoid_(inputs) * (1-Sigmoid.sigmoid_(inputs))    
 
     def backwards(self, inputs):
         s = self.forwards(inputs)
@@ -33,11 +32,14 @@ class ReLU:
         return np.maximum(0, inputs)    
     @staticmethod
     def ReLUBW_(inputs):
-        Z = inputs
-        dZ = np.array(inputs, copy=True) # just converting dz to a correct object.
-        # When z <= 0, you should set dz to 0 as well. 
-        dZ[Z <= 0] = 0
+        # Z = inputs
+        dZ = np.where(inputs > 0,1,inputs)
+        dZ = np.where(dZ <= 0 ,0,dZ)
         return dZ
+        # dZ = np.array(inputs, copy=True) # just converting dz to a correct object.
+        # # When z <= 0, you should set dz to 0 as well. 
+        # dZ[Z <= 0] = 0
+        # return dZ
 
         # return np.maximum(0, inputs)#1 if inputs > 0 else 0
 
@@ -76,17 +78,32 @@ class Tanh:
 class Softmax:
     @staticmethod
     def Softmax_(inputs):
-        exp_x = np.exp(inputs)
-        probs = exp_x / exp_x.sum()
-        return probs
-    @staticmethod    
-    def SoftmaxBW_(s): 
-        jacobian_m = np.diag(s)    
-        for i in range(len(jacobian_m)):
-            for j in range(len(jacobian_m)):
-                if i == j:
-                    jacobian_m[i][j] = s[i] * (1-s[i])
-                else: 
-                    jacobian_m[i][j] = -s[i]*s[j]
-        return jacobian_m    
+        f = np.exp(inputs - np.max(inputs))  # shift values
+        return f / f.sum()
+
+        # exp_x = np.exp(inputs)
+        # probs = exp_x / exp_x.sum()
+        # return probs
+    @staticmethod   
+    def SoftmaxBW_(prediction,label):
+        dy_dz=np.zeros_like(prediction)
+
+        for i in range (label.shape[1]):
+            ind=label[0,i]
+
+            dy_dz[:,i]=prediction[:, i]*-prediction[ind, i]
+
+            dy_dz[ind,i]+= prediction[ind, i]
+
+
+        return   dy_dz 
+    # def SoftmaxBW_(s): 
+    #     jacobian_m = np.diag(s)    
+    #     for i in range(len(jacobian_m)):
+    #         for j in range(len(jacobian_m)):
+    #             if i == j:
+    #                 jacobian_m[i][j] = s[i] * (1-s[i])
+    #             else: 
+    #                 jacobian_m[i][j] = -s[i]*s[j]
+    #     return jacobian_m    
 
