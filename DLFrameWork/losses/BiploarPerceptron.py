@@ -18,16 +18,12 @@ class BiploarPerceptron(Layer_Dense):
         act_fc=Layer_Dense.layer_activations[L]
 
         if (self.lable*self.parameters['Z'+str(L)] )> 0:
-            #dl_dy = 0
-            #for l in reversed(range(L)):
             self.dl['dW'+str(L)] = np.zeros(self.parameters['W'+str(L)].shape)
             self.dl['db'+str(L)] = np.zeros(self.parameters['b'+str(L)].shape)
             self.dl['dA'+str(L)] = np.zeros(self.parameters['A'+str(L)].shape)
                  
         else :
-            #for l in reversed(range(L)):
             dl_activation=np.zeros(self.parameters['Z'+str(L)].shape)
-            #print(dl_activation)
             if act_fc == 'sigmoid':
                sig_inst=Sigmoid()
                dl_activation = sig_inst.backwards(self.parameters['Z'+str(L)]) 
@@ -43,7 +39,6 @@ class BiploarPerceptron(Layer_Dense):
             dl_dz = np.matmul(-self.lable,dl_activation)
             self.dl['dW'+str(L)] = np.matmul(self.parameters['W'+str(L)],dl_dz)
             self.dl['db'+str(L)] = dl_dz
-            # self.dl['dA'+str(l)] = np.matmul(self.lable,act_fc.backwards(self.parameters['Z'+str(L)]))
             
     @staticmethod
     def _Loss(parameters,label) :  
