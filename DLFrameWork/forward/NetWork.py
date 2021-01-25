@@ -42,10 +42,10 @@ def _tupleDivide(tup):
     return layersShape
 
 class NetWork:
-    def __init__(self,LayersShape,activations,optimizations={'GD':True}):
+    def __init__(self,LayersShape,activations,optimType={'GD':True}):
         self.LayersShape = LayersShape
-        # print(_tupleDivide(LayersShape))
-        self.createdLayers = [Linear(layer[0],layer[1],l_size=layer[1]) for layer in _tupleDivide(LayersShape)]
+        print(_tupleDivide(LayersShape))
+        self.createdLayers = [Linear(layer[0],layer[1],l_size=layer[0]) for layer in _tupleDivide(LayersShape)]
         self.activations = list(repeat(activations, len(self.createdLayers))) if type(activations) == str \
                                                 else activations 
 
@@ -54,17 +54,17 @@ class NetWork:
         self.Zout = list()
         self.Aout = list()
         self.lossvalues = []
-        self.optimizer  = optimizations 
+        self.optimType  = optimType 
         # self.McreatedLayers
 
-    def fit(self,X,Y,lossType='',learning_rate=0.1):#,lossClass):
+    def fit(self,X,Y,learning_rate=0.1):#,lossClass):
         ########## Forward L Step        
         self._CalcFWD(X)
         self._ConstructParams() 
         # print('parameters is',self.parameters)
 
         ############## Lossess
-        # loss = SD._Loss(self.Aout[self.LayersLen-1],Y)
+        # cost = SD._Loss(self.Aout[self.LayersLen-1],Y)
         # cost = SD._Cost(self.Aout[self.LayersLen-1],Y)
         # print(self.Aout[self.LayersLen-1],Y)
         # print('shapes is ',self.Aout[self.LayersLen-1].shape,'', Y.T.shape)
@@ -76,9 +76,10 @@ class NetWork:
 
 
         # lossD = SD._Grad(self.Aout[self.LayersLen-1],Y)
+        # print('loss D', lossD)
         # lossD = lossgrad(self.Aout[self.LayersLen-1],Y)
-        # lossD = SoftmaxCrossEntropy._Grad(self.Aout[self.LayersLen-1],Y.T)
-        lossD = 10
+        lossD = SoftmaxCrossEntropy._Grad(self.Aout[self.LayersLen-1],Y.T)
+        # lossD = 10
         # Y label 
         # print('loss drvative is ', lossD.shape)
         # lossD = lossClass._Grad(self.Aout[self.LayersLen-1],Y)
@@ -90,9 +91,10 @@ class NetWork:
         ###########
         
         ######### parameters update
-        optimizer = optimizer(self.parameters,grads=grads,optimiType=self.optimizer,LayersLen=self.LayersLen,lr=learning_rate)
+        optimizer = Optimizer(parameters=self.parameters,grads=grads,optimiType=self.optimType,LayersLen=self.LayersLen,lr=learning_rate)
         # self.parameters = self._optimizerUsage(self.optimizations,grads=grads,lr=learning_rate)
         self.parameters = optimizer.optimize()
+        # print(self.parameters)
         self._UpdateLayerParam()
         ###########################
 
@@ -114,12 +116,12 @@ class NetWork:
 
     def _UpdateLayerParam(self):
             # print('update layer params')
-        for i in range(len(self.createdLayers)):
+        for i in range(self.LayersLen):
             self.createdLayers[i].updateW_B(self.parameters['W'+str(i+1)],self.parameters['b'+str(i+1)])
             # print('weights and bias is {}'.format(self.createdLayers[i].__reper__()))
 
     def _ConstructParams(self):
-        for i in range(len(self.createdLayers)):
+        for i in range(self.LayersLen):
             self.parameters['W'+str(i+1)],self.parameters['b'+str(i+1)] = self.createdLayers[i].__reper__()
             self.parameters['Z'+str(i+1)] = self.Zout[i]
             self.parameters['A'+str(i+1)] = self.Aout[i]
@@ -136,10 +138,10 @@ class NetWork:
             # print('layer is {}, activation is {}'.format(Layer.__reper__(),activation))
             zOut = Layer.forward(aOut)
             self.Zout.append(zOut)
-            # aOut = Sigmoid.sigmoid_(zOut)
-            # print(activation)
+            # print('zOut is', zOut)
             aOut = NetWork.ActivationCalc(zOut,activation)
             # print('aout is', aOut)
+
             self.Aout.append(aOut) 
     
     def FWD_predict(self,X):
@@ -156,15 +158,14 @@ class NetWork:
     # multi classfication       
     def _MultiPrediction(self,X,Y,parameter):
         m = X.shape[1]
-        p = np.zeros((1,m))
-        
+        p = list()#np.zeros((1,m))
+        print('m is ', m )
         probas = self.FWD_predict(X)
-
+        print('prob is {}, label is {}'.format(probas,Y))
         for i in range(0, probas.shape[1]):
-
             m = max(probas[:,i])
             max_indexes=[s for s, t in enumerate(probas[:,i]) if t == m]
-
+            # max_indexes = np.array(max_indexes)
             p.append(max_indexes[0])
     
         print("Accuracy: "  + str(np.sum((p == Y)/m)))
