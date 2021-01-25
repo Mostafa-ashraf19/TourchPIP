@@ -3,7 +3,7 @@
 
 ## Problem Statement
 
- - A DIY DL framework is a simpler verion of the available live frameworks such as PyTorch and TensorFlow. SO the goal here is to build a frame work that has 
+ - A DIY DL framework is a simpler verion of the available live frameworks such as PyTorch and TensorFlow. So the goal here is to build a frame work that has 
      * a data module to read and process datasets
      * A NN module to design different architectures
      * An optimization module for training
@@ -22,10 +22,12 @@ Or  = true positive + true negative / dataset size
   * ### Data Preprocessing 
       - After loading the data we have the option to perform some operation on the data. We Pass images to the data loader with batch size as desired normalize it, convert them into tensors and shuffle it. 
   * ### Data Visualisation  
-   <p align="center">
-    <img width="460" height="300" src="https://raw.githubusercontent.com/Mostafa-ashraf19/DL_framework-/master/Images/birdy.png?token=AN55WNTF74ET6SEXSCHFXTTAC3UFY">
-          </p>  
-     
+    <p float="center">
+       <img src="https://raw.githubusercontent.com/Mostafa-ashraf19/DL_framework-/master/Images/birdy.png?token=AN55WNTF74ET6SEXSCHFXTTAC3UFY" width="310" />
+       <img src="https://github.com/Mostafa-ashraf19/DL_framework-/blob/master/Images/CIFAR%20data%20vis.png" width="310" /> 
+       <img src="https://github.com/Mostafa-ashraf19/DL_framework-/blob/master/Images/MNIST_Data_vis.png" width="310" />
+    </p>
+    
 ##  Implementation
    -The Dataframe core is divided into modules as follows :
    * ### Layers 
@@ -63,13 +65,16 @@ Or  = true positive + true negative / dataset size
          1. Able to handle multiple classes only one class in other activation functions—normalizes the outputs for each class between 0 and 1, and divides by their sum, giving the probability of the input value being in a specific class.
          2. Useful for output neurons—typically Softmax is used only for the output layer, for neural networks that need to classify inputs into multiple categories.
           
-         
-  ![activation](https://raw.githubusercontent.com/Mostafa-ashraf19/DL_framework-/master/Images/activation.png?token=AN55WNU3NIXNW22K24ISVHLAC3T5A) \
-  * ### Losses 
-      - we seek to minimize the error. As such, the objective function is often referred to as a cost function or a loss function and the value calculated by the loss function is referred to as simply “loss.”
-The cost or loss function has an important job in that it must faithfully distill all aspects of the model down into a single number in such a way that improvements in that number are a sign of a better model.
-In calculating the error of the model during the optimization process, a loss function must be chosen.
-This can be a challenging problem as the function must capture the properties of the problem and be motivated by concerns that are important to the project and stakeholders.
+<p align="center">
+<img width="460" height="400" src="https://raw.githubusercontent.com/Mostafa-ashraf19/DL_framework-/master/Images/activation.png?token=AN55WNU3NIXNW22K24ISVHLAC3T5A">
+<p align="center">Activations.</p>
+ </p>      
+
+ * ### Losses 
+    - we seek to minimize the error. As such, the objective function is often referred to as a cost function or a loss function and the value calculated by the loss function is referred to as simply “loss.”
+   The cost or loss function has an important job in that it must faithfully distill all aspects of the model down into a single number in such a way that improvements in that number are a sign of a better model.
+   In calculating the error of the model during the optimization process, a loss function must be chosen.
+   This can be a challenging problem as the function must capture the properties of the problem and be motivated by concerns that are important to the project and stakeholders.
  
   * ### Optimization
       - Optimisers are supposed to avoid local minima and head for the global minimum as fast as possible. Different optimisers perform better for different surfaces, but there are a few that have proven useful for common use cases. 
@@ -83,10 +88,27 @@ This can be a challenging problem as the function must capture the properties of
           - __Momentum Optimization__:
            Momentum [1] or SGD with momentum is method which helps accelerate gradients vectors in the right directions so instead of using only the gradient of the current step to guide the search, momentum also accumulates the gradient of the past steps to determine the direction to go,thus leading to faster converging. It is one of the most popular optimization algorithms and many state-of-the-art models are trained using it.
            
-            
-  
-  
+
+ <p align="center">
+ <img width="460" height="460" src="https://raw.githubusercontent.com/Mostafa-ashraf19/DL_framework-/master/Images/DL_chart.jpg?token=AN55WNTF3PLJ3TSKGJYPOCLAC3UZC">
+ <p align="center">DL Flow Chart.</p>
+ </p>
+
+
+## Installation and Usage
+ * ### Usage
+    - At first the user needs to download & load the data whether it's MNIST or CIFAR So, he can use either the __FashionMNIST__ or the __CIFAR-10 class__. Both classes allow the user to select the path he wants for the downloaded data, If he wants to download it of no and select which data he wants to use whether it's the train or test data
+        <p align="center"> FMNIST = FashionMNIST(path='MNIST_Data',download=True,train=True) </p>
+    
+    - Pass the chosen data to the data loader by passing the return of the FashionMNIST or the CIFAR-10 class then select his batch size to work on, choose if he wants to normalize the data or shuffle. Now the data is ready to be passed to the next stage which is entering the designed dl neural network
+    
+    <p align="center"> dLoader = DataLoader(FMNIST,batchsize=500,shuffling=True,normalization={'Transform':True}) </p>
+    
+    - After preprocessing the data the user need to build his neural network by creating the dense layers he needs which within he can select (the number of inputs , number of neurons in each layer, the desired activation function) and the desired optimiser 
+    - Once the user is done with loading the data and building his neural network what's left to do is to start training his model. This is done by selecting the number of the iterations then feeding the model with the data we got from the data loader and calculate the loss.
+    
+    <p align="center">
+    <img width = "460" src ="https://github.com/Mostafa-ashraf19/DL_framework-/blob/master/Images/Mnist_test_example.png " >
+    <p align="center"> User Test case.</p>
+    </p>
  
-
-![DL_chart](https://raw.githubusercontent.com/Mostafa-ashraf19/DL_framework-/master/Images/DL_chart.jpg?token=AN55WNTF3PLJ3TSKGJYPOCLAC3UZC)
-
