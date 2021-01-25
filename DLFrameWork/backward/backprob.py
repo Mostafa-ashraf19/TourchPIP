@@ -53,7 +53,6 @@ class Backward:  # make inheratnce to loss, and layers
         if activation == 'Relu':
             self.grads['dZ'+str(l)] = ReLU.ReLUBW_(dAL)  
         elif activation == 'Sigmoid':
-            # print('Hello from sigmoid')
             self.grads['dZ'+str(l)] = Sigmoid.sigmoidBW_(dAL)
             return self.grads['dZ'+str(l)]
         elif activation == 'Tanh':
