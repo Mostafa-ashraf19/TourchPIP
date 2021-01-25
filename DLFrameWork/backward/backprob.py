@@ -15,44 +15,22 @@ class Backward:  # make inheratnce to loss, and layers
         self.layer_activations = dict(Layer_Dense.layer_activations)
         self.learning_rate = learning_rate
         self.LossDerivative = LossDerivative
-        #print('from backprop',Layer_Dense._params)
-        # print('self.parameters from jupyter',self.parameters)
         self.caches = { i: (self.parameters['A'+str(i)],self.parameters['W'+str(i)],self.parameters['b'+str(i)]) if i != 0 else 
                                 (self.parameters['A'+str(i)],'_') for i in range(0,int(((len(self.parameters.keys())-1)/3)+1))}
-        # self._params = 5
-        # print('self._params ', self._params)
-    # def _L_model_backward(self,AL, Y, caches):
     def _L_model_backward(self):# caches):
-        # print('_params inside L_model', self.parameters)
-        
-        # print('parameters inside L_model', self.parameters)
-        # print('len(self.layers_num_arr)', len(self.layers_num_arr))
-        # print('cache is ', self.caches)
+
         L = len(self.layers_num_arr) # the number of layers
-        #print('num of layyers is ',L)
-        m = self.caches[L][0].shape[1] #self.AL.shape[1]
-        # print('l size is ', L)
-        # print('shape is l ',self.caches[L])
-        self.Y = self.Y.reshape(self.caches[L][0].shape)#(AL.shape) # after this line, Y is the same shape as AL
-        
+        m = self.caches[L][0].shape[1] 
+
+        self.Y = self.Y.reshape(self.caches[L][0].shape)
         # Initializing the backpropagation
         dAL = self.LossDerivative # loss dervatie (dl/dy)
         self.grads['dA'+str(L)] = dAL
-        # print('Shape of DAL',dAL.shape)
         current_cache = (self.caches[L-1][0],self.caches[L][1],self.caches[L][2]) 
-        # print('DZ2', self.grads['dZ'+str(L)].shape)
-        # print('-'*10,'\n done from fun', '-'*10)
         self.grads["dA" + str(L-1)], self.grads["dW" + str(L)], self.grads["db" + str(L)] = self._LinearActivaionBW(dAL,
                                     L,linear_cache=current_cache,activation=self.layer_activations[L])
-        # print('grads eq','-'*10,'\n',self.grads)
-        # exit()    
-        # Loop from l=L-2 to l=0
-        # print('L before loop', L)
         for l in reversed(range(1,L)):
-            # print('cache from loop', self.caches[0])
-            # print('l from loop', l)
-            #print('from loop ', self.caches[l-1][0].shape)
-           # print('-*'*10,(self.caches[l-1][0].shape,self.caches[l][1],self.caches[l][2]))
+
             current_cache = (self.caches[l-1][0],self.caches[l][1],self.caches[l][2])#self.caches[l]
 
             dA_prev_temp, dW_temp, db_temp =  self._LinearActivaionBW(self.grads['dA'+str(l)],
@@ -60,8 +38,6 @@ class Backward:  # make inheratnce to loss, and layers
             self.grads["dA" + str(l-1)] = dA_prev_temp
             self.grads["dW" + str(l)] = dW_temp
             self.grads["db" + str(l)] = db_temp
-
-        # return self.grads  
 
     def backward(self): # user call it 
         self._L_model_backward()
@@ -83,25 +59,16 @@ class Backward:  # make inheratnce to loss, and layers
         elif activation == 'Tanh':
             self.grads['dZ'+str(l)] = Tanh.TanhBW_(dAL)
 
-    def _linear_backward(self,dZ, cache):
-        
-        # print('cache in linear is', cache)
-
+    def _linear_backward(self,dZ, cache):        
         A_prev, W, b = cache
-        #print('A_prev shape',A_prev.shape)
         m = A_prev.shape[1]
-        # print('DZ is', dZ)
-        # print('DZ dim', dZ.shape, 'A_prev dim', A_prev.shape)
         dW = (1/m) * np.matmul(dZ,A_prev.T) # dz2 (1,1) * a1 (3*1)
         db = (1/m) * np.sum(dZ,axis=1,keepdims=True)
-        # print('W shape ',W.shape,'Dz.shape',dZ.shape )
 
         dA_prev = np.matmul(W.T,dZ) # da1 = w2.t(3,1) . dz2(1,1) 
-        # print('dA_prev shape ',dA_prev.shape,'A_prev.shape', A_prev.shape )
         assert (dA_prev.shape == A_prev.shape)
         assert (dW.shape == W.shape)
-        assert (db.shape == b.shape)
-        
+        assert (db.shape == b.shape)        
         return dA_prev, dW, db
 
     def _update_parameters(self):
@@ -122,16 +89,13 @@ class Backward:  # make inheratnce to loss, and layers
 
         caches = { i: (parameters['A'+str(i)],parameters['W'+str(i)],parameters['Z'+str(i)],parameters['b'+str(i)]) if i != 0 else 
                                 (parameters['A'+str(i)],'_') for i in range(0,layers_num_arr+1)}     
-        L = layers_num_arr # the number of layers 2 
-        m = caches[L][0].shape[1] #self.AL.shape[1] # 6000 tmaaaaaam 
-        # print('AL shape {}, Y shape{}'.format(caches[L][0].shape,Y.shape))
-        # Y = Y.reshape(caches[L][0].shape)# msh tmam 
-        # after this line, Y is the same shape as AL
+        L = layers_num_arr # the number of layers 
+        m = caches[L][0].shape[1]  
         grads = dict()
         # Initializing the backpropagation
         if layer_activations[L-1]  != 'SoftMax':
-            dAL = LossDerivative # loss dervatie (dl/dy)
-            grads['dA'+str(L)] = dAL # dA2 Henaaaaaa dl/dy === dl/da2
+            dAL = LossDerivative  
+            grads['dA'+str(L)] = dAL 
             current_cache = (caches[L-1][0],caches[L][1],caches[L][2]) 
             grads["dA" + str(L-1)], grads["dW" + str(L)],grads["db" + str(L)] = Backward._StaticLinearActivaionBW(dAL,
                                             L,parameter=parameters,Y=Y,linear_cache=current_cache,activation=layer_activations[L-1],grads=grads)
@@ -140,13 +104,8 @@ class Backward:  # make inheratnce to loss, and layers
             current_cache = (caches[L-1][0],caches[L][1],caches[L][2])
             grads["dA" + str(L-1)], grads["dW" + str(L)],grads["db" + str(L)] = Backward._StaticLinearBW(dZ,current_cache)
 
-        # exit()    
-        # Loop from l=L-2 to l=0
-        # print('L cap is ', L)
-        # print('activations is', list(layer_activations))
-        # print('cache is', caches)
+
         for l in reversed(range(L-1)):
-            # print('l small is ', l)
             current_cache = (caches[l][0],caches[l+1][1],caches[l+1][2])
 
             dA_prev_temp, dW_temp, db_temp = Backward._StaticLinearActivaionBW(grads['dA'+str(l+1)],
@@ -163,27 +122,22 @@ class Backward:  # make inheratnce to loss, and layers
         
     @staticmethod
     def _StaticLinearActivaionBW(dAL,l,linear_cache,parameter,Y,activation='',grads=''):
-        # activations derivatives 
         dZ = Backward._StaticBWActivations(parameter=parameter,Y=Y,l=l,activation=activation,grads=grads) # (1,1)dz2
         dZL  = Backward._multiply(dAL,dZ) # multiply 
         dA_prev, dW, db = Backward._StaticLinearBW(dZL,linear_cache)# da1,dw2,db2
         return dA_prev,dW,db
-    # Done 
     @staticmethod
     def _StaticBWActivations(l,parameter,activation='ReLU',grads='',Y=0):  
         if activation == 'ReLU':
             grads['dZ'+str(l)] = ReLU.ReLUBW_(parameter['Z'+str(l)]) 
             return grads['dZ'+str(l)]
         elif activation == 'Sigmoid':
-            # print('Sigmoid')
-            # print(linear_cache)
             grads['dZ'+str(l)] = Sigmoid.sigmoidBW_(parameter['Z'+str(l)]) 
             return grads['dZ'+str(l)]
         elif activation == 'Tanh':
             grads['dZ'+str(l)] = Tanh.TanhBW_(parameter['Z'+str(l)])
             return grads['dZ'+str(l)]
         elif activation == 'SoftMax':
-            # print(' softmax ', l )
             grads['dZ'+str(l)] = Softmax.SoftmaxBW_(parameter['A'+str(l)],Y)
             return grads['dZ'+str(l)]
     @staticmethod 
@@ -193,14 +147,9 @@ class Backward:  # make inheratnce to loss, and layers
     def _StaticLinearBW(dZ,cache):
         A_prev, W, b = cache
         m = A_prev.shape[1]
-        # print('dz shape {}, dA shape'.format(dZ.shape,A_prev.shape))
-        dW =  np.matmul(dZ,A_prev.T) # dz2 (1,1) * a1 (3*1)
+        dW =  np.matmul(dZ,A_prev.T) 
         db =  np.sum(dZ,axis=1,keepdims=True)
-        dA_prev = np.matmul(W.T,dZ) # da1 = w2.t(3,1) . dz2(1,1) 
-        # print('dA_prev shape ',dA_prev.shape,'A_prev.shape', A_prev.shape )
+        dA_prev = np.matmul(W.T,dZ)  
         assert (dA_prev.shape == A_prev.shape)
-        assert (dW.shape == W.shape)
-        # print('db shape {},b shape {}'.format(db.shape,b.shape))
-        # assert (db.shape == b.shape)
-        
+        assert (dW.shape == W.shape)        
         return dA_prev, dW, db
