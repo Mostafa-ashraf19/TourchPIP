@@ -1,6 +1,8 @@
 import pandas
 import numpy as np
 import math
+import pandas
+import random
 
 class DataLoaderIterator:
     def __init__(self,dataloader):
@@ -32,8 +34,8 @@ class DataLoader:
         self.shuffling = shuffling
         self.normalization = normalization['Transform'] if type(normalization['Transform']) == bool else RuntimeError('should be bool value ') 
         fileObject = open(self.path)
-        row_count = sum(1 for row in fileObject) 
-        self.iternums = math.ceil((row_count-1) / batchsize) - 5
+        self.row_count = sum(1 for row in fileObject) 
+        self.iternums = math.ceil((self.row_count-1) / batchsize) - 5
 
     def __iter__(self):
            return DataLoaderIterator(self) 
@@ -66,6 +68,16 @@ class DataLoader:
                     np.random.shuffle(norm_x)
                     np.random.shuffle(y)
                     return norm_x , y.reshape(-1,1)
+    def load(self,normalize=False):
+        if normalize:
+            df = pandas.read_csv(self.path, skiprows=random.randint(0, self.row_count - self.batchsize -2),nrows=self.batchsize)
+            x = df.iloc[:, 1:].to_numpy()
+            norm_x = (x - np.min(x))/np.ptp(x)
+            return norm_x , df.iloc[:, 0].to_numpy().reshape(-1,1)
 
+        else:
+            df = pandas.read_csv(self.path, skiprows=random.randint(0, self.row_count - self.batchsize -2),nrows=self.batchsize)
+            return df.iloc[:, 1:].to_numpy(), df.iloc[:, 0].to_numpy().reshape(-1,1)
 
+    
 
