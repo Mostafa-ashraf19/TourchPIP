@@ -34,7 +34,6 @@ class DataLoader:
         fileObject = open(self.path)
         row_count = sum(1 for row in fileObject) 
         self.iternums = math.ceil((row_count-1) / batchsize) - 5
-        print('iter num is',self.iternums)
 
     def __iter__(self):
            return DataLoaderIterator(self) 
