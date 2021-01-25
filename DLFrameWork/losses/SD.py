@@ -21,7 +21,7 @@ class SD():
 
     @staticmethod
     def _Loss(prediction,label) :  
-      lossval = (prediction-label)**2
+      lossval = 0.5*(prediction-label)**2
       return lossval
     
     @staticmethod
