@@ -114,8 +114,9 @@ class NetWork:
             m = max(probas[:,i])
             max_indexes=[s for s, t in enumerate(probas[:,i]) if t == m]
             p.append(max_indexes[0])
+        acc = np.sum((p == Y) / m)
     
-        return p
+        return p, acc
     # binay classfication    
     def _BinaryPrediction(self,X,Y,parameter):
         m = X.shape[1]
@@ -129,9 +130,8 @@ class NetWork:
                 p[0,i] = 1
             else:
                 p[0,i] = 0
-        
-        return p
-        # pass 
+        acc = np.sum((p == Y) / m)
+        return p, acc
     @staticmethod
     def ActivationCalc(zOut,activation='ReLU'):
         if activation == 'ReLU':
@@ -155,9 +155,7 @@ class NetWork:
         return self.McreatedLayers[0]
         pass
             
-    def save_model(self,path):
-        pass
-
+   
     def save_model(self,path):
         
         with open(path, 'w') as filehandle:
