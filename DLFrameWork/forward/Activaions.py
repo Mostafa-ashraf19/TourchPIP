@@ -26,23 +26,12 @@ class ReLU:
         return rel
     @staticmethod     
     def ReLU_(inputs):
-        # print('relu in value is', inputs)
-        # print('-'*20)
-        # print('relu out value is',np.maximum(0, inputs))
         return np.maximum(0, inputs)    
     @staticmethod
     def ReLUBW_(inputs):
-        # Z = inputs
         dZ = np.where(inputs > 0,1,inputs)
         dZ = np.where(dZ <= 0 ,0,dZ)
         return dZ
-        # dZ = np.array(inputs, copy=True) # just converting dz to a correct object.
-        # # When z <= 0, you should set dz to 0 as well. 
-        # dZ[Z <= 0] = 0
-        # return dZ
-
-        # return np.maximum(0, inputs)#1 if inputs > 0 else 0
-
     def Backwards(self, inputs):
          if inputs > 0:
              return 1
@@ -81,9 +70,6 @@ class Softmax:
         f = np.exp(inputs - np.max(inputs))  # shift values
         return f / f.sum()
 
-        # exp_x = np.exp(inputs)
-        # probs = exp_x / exp_x.sum()
-        # return probs
     @staticmethod   
     def SoftmaxBW_(prediction,label):
         dy_dz=np.zeros_like(prediction)
@@ -97,13 +83,3 @@ class Softmax:
 
 
         return   dy_dz 
-    # def SoftmaxBW_(s): 
-    #     jacobian_m = np.diag(s)    
-    #     for i in range(len(jacobian_m)):
-    #         for j in range(len(jacobian_m)):
-    #             if i == j:
-    #                 jacobian_m[i][j] = s[i] * (1-s[i])
-    #             else: 
-    #                 jacobian_m[i][j] = -s[i]*s[j]
-    #     return jacobian_m    
-
