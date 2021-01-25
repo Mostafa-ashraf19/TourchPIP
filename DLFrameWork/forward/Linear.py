@@ -4,7 +4,7 @@ import numpy as np
 
 class Linear:
     
-    def __init__(self, n_inputs, n_neurons,l_size, weight_type="random"):
+    def __init__(self, n_inputs, n_neurons,l_size, weight_type="random_l"):
         '''
         # Initialize weights and biases randomly
         @params :   n_inputs ---> number of features
@@ -43,6 +43,8 @@ class Linear:
         self.weights = new_weights
         # self._params['W'+ str(self.layer_number)] = self.weights
         # self._params['b'+ str(self.layer_number)] = self.biases
+    def set_b(self,b):
+        self.biases = b    
     def updateW_B(self,weights,bias):
         # print('Hello from linear update w and b')
         self.weights = weights 
