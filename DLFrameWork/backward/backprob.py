@@ -120,7 +120,7 @@ class Backward:  # make inheratnce to loss, and layers
     @staticmethod
     def _L_Backward(layers_num_arr,parameters,Y,LossDerivative,layer_activations):# caches):   
 
-        caches = { i: (parameters['A'+str(i)],parameters['W'+str(i)],parameters['b'+str(i)]) if i != 0 else 
+        caches = { i: (parameters['A'+str(i)],parameters['W'+str(i)],parameters['Z'+str(i)],parameters['b'+str(i)]) if i != 0 else 
                                 (parameters['A'+str(i)],'_') for i in range(0,layers_num_arr+1)}     
         L = layers_num_arr # the number of layers 2 
         m = caches[L][0].shape[1] #self.AL.shape[1] # 6000 tmaaaaaam 
@@ -134,9 +134,9 @@ class Backward:  # make inheratnce to loss, and layers
             grads['dA'+str(L)] = dAL # dA2 Henaaaaaa dl/dy === dl/da2
             current_cache = (caches[L-1][0],caches[L][1],caches[L][2]) 
             grads["dA" + str(L-1)], grads["dW" + str(L)],grads["db" + str(L)] = Backward._StaticLinearActivaionBW(dAL,
-                                        L,linear_cache=current_cache,activation=layer_activations[L-1],grads=grads)
-        else:   
-            dZ = SoftmaxCrossEntropy._Grad(caches[L][0],Y)     
+                                            L,parameter=parameters,Y=Y,linear_cache=current_cache,activation=layer_activations[L-1],grads=grads)
+        else: 
+            dZ = SoftmaxCrossEntropy._Grad(caches[L][0],Y)#.sum(axis=1,keepdims=True)      # dl/dy * dy/dz
             current_cache = (caches[L-1][0],caches[L][1],caches[L][2])
             grads["dA" + str(L-1)], grads["dW" + str(L)],grads["db" + str(L)] = Backward._StaticLinearBW(dZ,current_cache)
 
@@ -145,13 +145,12 @@ class Backward:  # make inheratnce to loss, and layers
         # print('L cap is ', L)
         # print('activations is', list(layer_activations))
         # print('cache is', caches)
-        ep = 1
         for l in reversed(range(L-1)):
             # print('l small is ', l)
             current_cache = (caches[l][0],caches[l+1][1],caches[l+1][2])
 
             dA_prev_temp, dW_temp, db_temp = Backward._StaticLinearActivaionBW(grads['dA'+str(l+1)],
-                                    l+1,linear_cache=current_cache,activation=layer_activations[l],grads=grads)
+                                    l+1,Y=Y,linear_cache=current_cache,parameter=parameters,activation=layer_activations[l],grads=grads)
             grads["dA" + str(l)] = dA_prev_temp
             grads["dW" + str(l+1)] = dW_temp
             grads["db" + str(l+1)] = db_temp
@@ -159,70 +158,49 @@ class Backward:  # make inheratnce to loss, and layers
         return grads  
     @staticmethod
     def StaticBW(parameters,learning_rate,LossDerivative,Y,layersLen,layer_activations): # user call it 
-         # normal gd
         grads = Backward._L_Backward(layers_num_arr=layersLen,parameters=parameters,Y=Y,LossDerivative=LossDerivative,layer_activations=layer_activations)
         return grads
-        # return Backward.StaticParamUpdate(layers_num_arr=layersLen,parameters=parameters,grads=grads,learning_rate=learning_rate)
-        # momentum 
-
-        # adam 
-        # v,s = Adam.initialize_adam(parameters=parameters,layerlen=layersLen)
-        # return Adam.update_parameters(layerlen=layersLen,v=v,s=s,grads=grads,parameters=parameters,learning_rate=learning_rate)
+        
     @staticmethod
-    def _StaticLinearActivaionBW(dAL,l,linear_cache,activation='',grads=''):
-        dZ = Backward._StaticBWActivations(dAL,l=l,activation=activation,grads=grads) # (1,1)dz2
-        dA_prev, dW, db = Backward._StaticLinearBW(dZ,linear_cache)# da1,dw2,db2
+    def _StaticLinearActivaionBW(dAL,l,linear_cache,parameter,Y,activation='',grads=''):
+        # activations derivatives 
+        dZ = Backward._StaticBWActivations(parameter=parameter,Y=Y,l=l,activation=activation,grads=grads) # (1,1)dz2
+        dZL  = Backward._multiply(dAL,dZ) # multiply 
+        dA_prev, dW, db = Backward._StaticLinearBW(dZL,linear_cache)# da1,dw2,db2
         return dA_prev,dW,db
+    # Done 
     @staticmethod
-    def _StaticBWActivations(dAL,l,activation='ReLU',grads=''):  
-        # print('Hello my activation is', activation)      
+    def _StaticBWActivations(l,parameter,activation='ReLU',grads='',Y=0):  
         if activation == 'ReLU':
-            # print('dAL out', dAL)
-            grads['dZ'+str(l)] = ReLU.ReLUBW_(dAL) 
-            # print('dZL grads out dervative ',grads['dZ'+str(l)])
+            grads['dZ'+str(l)] = ReLU.ReLUBW_(parameter['Z'+str(l)]) 
             return grads['dZ'+str(l)]
         elif activation == 'Sigmoid':
-            grads['dZ'+str(l)] = Sigmoid.sigmoidBW_(dAL)
+            # print('Sigmoid')
+            # print(linear_cache)
+            grads['dZ'+str(l)] = Sigmoid.sigmoidBW_(parameter['Z'+str(l)]) 
             return grads['dZ'+str(l)]
         elif activation == 'Tanh':
-            grads['dZ'+str(l)] = Tanh.TanhBW_(dAL)
+            grads['dZ'+str(l)] = Tanh.TanhBW_(parameter['Z'+str(l)])
             return grads['dZ'+str(l)]
         elif activation == 'SoftMax':
-            grads['dZ'+str(l)] = Softmax.SoftmaxBW_(dAL)
+            # print(' softmax ', l )
+            grads['dZ'+str(l)] = Softmax.SoftmaxBW_(parameter['A'+str(l)],Y)
             return grads['dZ'+str(l)]
-
+    @staticmethod 
+    def _multiply(A,Z):
+        return A * Z
     @staticmethod
     def _StaticLinearBW(dZ,cache):
-        
-        # print('cache in linear is', cache)
-
         A_prev, W, b = cache
-        # print('A_prev shape',A_prev.shape)
         m = A_prev.shape[1]
-
-        # print('DZ is', dZ)
-        # print('DZ dim', dZ.shape, 'A_prev dim', A_prev.shape)
-        # dW = (1/m) * np.matmul(dZ,A_prev.T) # dz2 (1,1) * a1 (3*1)
-        # print('DZ shape ',dZ.shape)
-        # temp = A_prev.T if A_prev.shape[1] != 
-        dW = (1/m) * np.matmul(dZ,A_prev.T) # dz2 (1,1) * a1 (3*1)
-        db = (1/m) * np.sum(dZ,axis=1,keepdims=True)
-        # print('W shape ',W.shape,'Dz.shape',dZ.shape )
-
+        # print('dz shape {}, dA shape'.format(dZ.shape,A_prev.shape))
+        dW =  np.matmul(dZ,A_prev.T) # dz2 (1,1) * a1 (3*1)
+        db =  np.sum(dZ,axis=1,keepdims=True)
         dA_prev = np.matmul(W.T,dZ) # da1 = w2.t(3,1) . dz2(1,1) 
         # print('dA_prev shape ',dA_prev.shape,'A_prev.shape', A_prev.shape )
         assert (dA_prev.shape == A_prev.shape)
         assert (dW.shape == W.shape)
-        assert (db.shape == b.shape)
+        # print('db shape {},b shape {}'.format(db.shape,b.shape))
+        # assert (db.shape == b.shape)
         
         return dA_prev, dW, db
-    # @staticmethod
-    # def StaticParamUpdate(layers_num_arr,parameters,grads,learning_rate):
-               
-    #     L = layers_num_arr  # number of layers in the neural network
-    #     # Update rule for each parameter. Use a for loop.
-    #     for l in range(1,L+1):
-    #         parameters["W" + str(l+1)] = parameters["W" + str(l+1)] - learning_rate * grads['dW'+str(l+1)]
-    #         parameters["b" + str(l+1)] = parameters["b" + str(l+1)] - learning_rate * grads['db'+str(l+1)]
-    #     grads.clear()
-    #     return parameters     
