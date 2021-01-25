@@ -112,6 +112,6 @@ Or  = true positive + true negative / dataset size
     <p align="center"> User Test case.</p>
     </p>
   * ### Installation
-   <pip install TourchPIP
+   -  > pip install TourchPIP
  
-[Colab Note](lhttps://l.messenger.com/l.php?u=https%3A%2F%2Fcolab.research.google.com%2Fdrive%2F1zJx87aXbK2Kuaek5iLooJu6VbVbSEVT_%3Fusp%3Dsharing&h=AT3kYo2PutPuLJqlH4DHdAojMco0k6Fwv6SmQZ7-mwzDw-DeRP-BIyRnUNTGUvY05R7WQsLwLAExWDTtZdug8hvunQ-K5POIt0yLWh58bfxHWvU2EilYoeIUYmlqfvoeEMrZ-Aink)
+[Colab Notebook](https://l.messenger.com/l.php?u=https%3A%2F%2Fcolab.research.google.com%2Fdrive%2F1zJx87aXbK2Kuaek5iLooJu6VbVbSEVT_%3Fusp%3Dsharing&h=AT3kYo2PutPuLJqlH4DHdAojMco0k6Fwv6SmQZ7-mwzDw-DeRP-BIyRnUNTGUvY05R7WQsLwLAExWDTtZdug8hvunQ-K5POIt0yLWh58bfxHWvU2EilYoeIUYmlqfvoeEMrZ-Aink)
