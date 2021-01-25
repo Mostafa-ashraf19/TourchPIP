@@ -22,8 +22,8 @@ class Adam:
                                 beta1 = 0.9, beta2 = 0.999,  epsilon = 1e-8):
     
         L = layerlen                 # number of layers in the neural networks
-        v_corrected = {}                         # Initializing first moment estimate, python dictionary
-        s_corrected = {}                         # Initializing second moment estimate, python dictionary
+        v_corrected = {}             # Initializing first moment estimate, python dictionary
+        s_corrected = {}              # Initializing second moment estimate, python dictionary
         
         # Perform Adam update on all parameters
         for l in range(L):
@@ -49,4 +49,4 @@ class Adam:
             parameters["b" + str(l+1)] = parameters["b" + str(l+1)] - (learning_rate*v_corrected["db" + str(l+1)]/
                                                             np.sqrt(s_corrected["db" + str(l+1)]+epsilon))        
 
-        return parameters#, v, s     
+        return parameters
