@@ -104,7 +104,8 @@ Or  = true positive + true negative / dataset size
     
     <p align="center"> dLoader = DataLoader(FMNIST,batchsize=500,shuffling=True,normalization={'Transform':True}) </p>
     
-    - After pre-processing the data the user need to build his neural network by creating the dense layers he needs and within he can select (the number of inputs , number of neurons, the desired activation function)
+    - After preprocessing the data the user need to build his neural network by creating the dense layers he needs which within he can select (the number of inputs , number of neurons in each layer, the desired activation function) and the desired optimiser 
+    - Once the user is done with loading the data and building his neural network what's left to do is to start training his model. This is done by selecting the number of the iterations then feeding the model with the data we got from the data loader and calculate the loss.
     
     <p align="center">
     <img width = "460" src ="https://github.com/Mostafa-ashraf19/DL_framework-/blob/master/Images/Mnist_test_example.png " >
