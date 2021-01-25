@@ -1,6 +1,4 @@
 import numpy as np
-# from ..forward import Layer_Dense#_params
-# from ..backward import Backward
 
 
 class SD():
